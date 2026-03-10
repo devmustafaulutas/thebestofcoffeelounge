@@ -53,3 +53,4 @@ next-env.d.ts
 
 tree.sh
 
+*.d.ts
