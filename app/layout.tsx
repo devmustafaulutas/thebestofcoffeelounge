@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: "El yapımı özel kahvelerimiz, imza içeceklerimiz ve usta tatlılarımızı keşfedin.",
     images: [
       {
-        url: "/images/logo.jpg", 
+        url: "/images/logo.png", 
         width: 1200,
         height: 630,
         alt: "The Best Of Coffee Lounge",
@@ -46,8 +46,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/images/logo.png", type: "image/png", sizes: "512x512" },
     ],
     apple: [
