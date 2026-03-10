@@ -8,26 +8,23 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect
 
 export function GSAPProvider({ children }: { children: ReactNode }) {
-  const main = useRef<HTMLDivElement>(null)
+  const mainRef = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
       ScrollTrigger.defaults({
         markers: false,
       })
-    }, main)
+    }, mainRef)
 
     return () => ctx.revert()
   }, [])
 
-  return (
-    <div ref={main}>
-      {children}
-    </div>
-  )
+  return <div ref={mainRef}>{children}</div>
 }
 
 export { gsap, ScrollTrigger }

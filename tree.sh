@@ -6,7 +6,7 @@ root="$(pwd)"
 excluded_dirs=(
   "node_modules" "bin" "obj" ".git" ".github" ".vscode" ".idea"
   "dist" "build" ".next" "coverage" ".turbo" ".vs" "out" "temp"
-  "static" "public" "uploads" "images" "img"
+  "static"  "uploads" 
 )
 
 # Hariç tutulacak dosyalar (regex)

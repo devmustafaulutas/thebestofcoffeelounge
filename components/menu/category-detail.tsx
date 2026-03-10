@@ -1,11 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback, useMemo } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { ArrowLeft, X, Sparkles, TrendingUp, Star, ChevronRight, Sun, Moon } from "lucide-react"
 import { gsap } from "@/components/gsap-provider"
+import { useTheme } from "next-themes"
 import { type MenuCategory, type MenuItem, formatPrice } from "@/lib/menu-data"
-import { ArrowLeft, Sparkles, TrendingUp, Star, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import {
   Drawer,
   DrawerContent,
@@ -13,240 +14,521 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer"
-import { Badge } from "@/components/ui/badge"
 
 interface CategoryDetailProps {
   category: MenuCategory
-  onBack: () => void
 }
 
-export function CategoryDetail({ category, onBack }: CategoryDetailProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([])
-  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null)
+// ── Long press hook ──
+function useLongPress(onLongPress: () => void, onRelease: () => void, delay = 500) {
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const fired = useRef(false)
 
+  const start = useCallback(() => {
+    fired.current = false
+    timerRef.current = setTimeout(() => {
+      fired.current = true
+      onLongPress()
+    }, delay)
+  }, [onLongPress, delay])
+
+  const cancel = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    onRelease()
+  }, [onRelease])
+
+  return {
+    onTouchStart: start,
+    onTouchEnd: cancel,
+    onMouseDown: start,
+    onMouseUp: cancel,
+    onMouseLeave: cancel,
+    didFire: () => fired.current,
+  }
+}
+
+// ── Skeleton ──
+function SkeletonItem() {
+  return (
+    <div className="flex items-center gap-4 px-5 py-4 md:px-7 md:py-5 border-b border-[var(--gold)]/6">
+      <div className="w-[68px] h-[68px] md:w-[84px] md:h-[84px] flex-shrink-0 rounded-xl bg-muted animate-pulse" />
+      <div className="flex-1 space-y-2.5">
+        <div className="h-4 bg-muted rounded-full animate-pulse w-2/3" />
+        <div className="h-3 bg-muted rounded-full animate-pulse w-full" />
+        <div className="h-3 bg-muted rounded-full animate-pulse w-1/3" />
+      </div>
+      <div className="h-7 w-16 bg-muted rounded-full animate-pulse flex-shrink-0" />
+    </div>
+  )
+}
+
+// ── Item Row ──
+interface ItemRowProps {
+  item: MenuItem
+  onSelect: (item: MenuItem, el: HTMLButtonElement | null) => void
+  onPreviewShow: (item: MenuItem, el: HTMLButtonElement | null) => void
+  onPreviewHide: () => void
+}
+
+function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps) {
+  const btnRef = useRef<HTMLButtonElement>(null)
+
+  const longPress = useLongPress(
+    () => onPreviewShow(item, btnRef.current),
+    onPreviewHide,
+    500
+  )
+
+  return (
+    <button
+      ref={btnRef}
+      type="button"
+      onClick={() => {
+        if (!longPress.didFire()) onSelect(item, btnRef.current)
+      }}
+      {...longPress}
+      className="group w-full text-left border-b border-[var(--gold)]/6 last:border-0 hover:bg-[var(--gold)]/3 dark:hover:bg-[var(--gold)]/4 transition-colors duration-200 relative select-none"
+    >
+      <div className="absolute left-0 top-0 w-0.5 h-full bg-[var(--gold)] scale-y-0 group-hover:scale-y-100 origin-center transition-transform duration-300" />
+
+      <div className="flex items-center gap-4 px-5 py-4 md:px-7 md:py-5">
+        {/* Image */}
+        <div className="relative w-[68px] h-[68px] md:w-[84px] md:h-[84px] flex-shrink-0 rounded-xl overflow-hidden border border-[var(--gold)]/10">
+          {item.image ? (
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+              sizes="(max-width: 768px) 68px, 84px"
+            />
+          ) : (
+            <div className="w-full h-full bg-muted flex items-center justify-center">
+              <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground">Menü</span>
+            </div>
+          )}
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                <h3 className="text-[1rem] md:text-[1.1rem] font-medium tracking-tight text-foreground group-hover:text-[var(--gold)] transition-colors duration-200 truncate">
+                  {item.name}
+                </h3>
+                {item.isSignature && (
+                  <span className="text-[8px] uppercase tracking-[0.18em] text-[var(--gold)] border border-[var(--gold)]/25 bg-[var(--gold)]/8 rounded-full px-2 py-0.5">
+                    Özel
+                  </span>
+                )}
+                {item.isPopular && (
+                  <span className="text-[8px] uppercase tracking-[0.18em] text-amber-600 dark:text-amber-400 border border-amber-500/25 bg-amber-500/8 rounded-full px-2 py-0.5">
+                    Popüler
+                  </span>
+                )}
+                {item.isNew && (
+                  <span className="text-[8px] uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 bg-emerald-500/8 rounded-full px-2 py-0.5">
+                    Yeni
+                  </span>
+                )}
+              </div>
+              {item.description && (
+                <p className="text-xs md:text-sm leading-5 text-muted-foreground font-light line-clamp-2">
+                  {item.description}
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2.5 flex-shrink-0">
+              <span className="font-display text-xl md:text-2xl font-semibold text-[var(--gold)] tracking-tight">
+                {formatPrice(item.price)}
+              </span>
+              <div className="hidden md:flex w-8 h-8 rounded-full border border-[var(--gold)]/15 items-center justify-center text-muted-foreground group-hover:border-[var(--gold)]/40 group-hover:text-[var(--gold)] transition-all duration-200">
+                <ChevronRight className="h-3.5 w-3.5" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </button>
+  )
+}
+
+// ── Main Component ──
+export function CategoryDetail({ category }: CategoryDetailProps) {
+  const router = useRouter()
+  const { theme, setTheme } = useTheme()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const navRef = useRef<HTMLDivElement>(null)
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null)
+  const [previewItem, setPreviewItem] = useState<MenuItem | null>(null)
+  const [previewPos, setPreviewPos] = useState({ x: 0, y: 0 })
+  const [loaded, setLoaded] = useState(false)
+  const [activeTab, setActiveTab] = useState(0)
+  const [navSticky, setNavSticky] = useState(false)
+
+  // Group items
+  const groups = useMemo(() => {
+    const signature = category.items.filter(i => i.isSignature)
+    const popular = category.items.filter(i => i.isPopular && !i.isSignature)
+    const isNew = category.items.filter(i => i.isNew && !i.isPopular && !i.isSignature)
+    const rest = category.items.filter(i => !i.isSignature && !i.isPopular && !i.isNew)
+
+    const result = []
+    if (signature.length) result.push({ label: "Özel", icon: "★", items: signature })
+    if (popular.length) result.push({ label: "Popüler", icon: "🔥", items: popular })
+    if (isNew.length) result.push({ label: "Yeni", icon: "✦", items: isNew })
+    if (rest.length) result.push({ label: "Tümü", icon: "◈", items: rest })
+
+    if (result.length <= 1) return [{ label: "Tümü", icon: "◈", items: category.items }]
+    return result
+  }, [category.items])
+
+  // Price range
+  const priceRange = useMemo(() => {
+    const prices = category.items.map(i => i.price)
+    const min = Math.min(...prices)
+    const max = Math.max(...prices)
+    return min === max ? formatPrice(min) : `${formatPrice(min)} – ${formatPrice(max)}`
+  }, [category.items])
+
+  // Simulate skeleton loading
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 700)
+    return () => clearTimeout(t)
+  }, [])
+
+  // Sticky nav
+  useEffect(() => {
+    const onScroll = () => {
+      const top = contentRef.current?.getBoundingClientRect().top ?? 999
+      setNavSticky(top <= 64)
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  // Active tab via IntersectionObserver
+  useEffect(() => {
+    if (groups.length <= 1) return
+    const observers: IntersectionObserver[] = []
+    sectionRefs.current.forEach((el, i) => {
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveTab(i) },
+        { rootMargin: "-30% 0px -60% 0px" }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+    return () => observers.forEach(o => o.disconnect())
+  }, [groups.length, loaded])
+
+  // GSAP animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header entrance
-      gsap.fromTo(
-        headerRef.current,
+      gsap.fromTo(headerRef.current,
         { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+        { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }
       )
-
-      // Items stagger
-      itemsRef.current.forEach((item, index) => {
-        if (!item) return
-
-        gsap.fromTo(
-          item,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
-            delay: 0.1 + index * 0.05,
-            ease: "power3.out",
-          }
-        )
+      gsap.fromTo(heroRef.current,
+        { opacity: 0, scale: 1.04 },
+        { opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }
+      )
+      gsap.to(".detail-hero-img", {
+        yPercent: 18, ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
       })
+      gsap.fromTo(contentRef.current,
+        { opacity: 0, y: 36 },
+        { opacity: 1, y: 0, duration: 0.75, delay: 0.12, ease: "power3.out" }
+      )
     }, containerRef)
-
     return () => ctx.revert()
-  }, [category])
+  }, [category.id])
 
   const handleBack = () => {
-    gsap.to(containerRef.current, {
-      opacity: 0,
-      duration: 0.2,
-      onComplete: onBack,
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        if (window.history.length > 1) router.back()
+        else router.push("/")
+      })
+    } else {
+      if (window.history.length > 1) router.back()
+      else router.push("/")
+    }
+  }
+
+  const handleItemClick = (item: MenuItem, el: HTMLButtonElement | null) => {
+    if (!el) { setSelectedItem(item); return }
+    gsap.to(el, {
+      scale: 0.97, duration: 0.1, ease: "power2.in",
+      onComplete:
+        () => {
+          gsap.to(el, {
+            scale: 1, duration: 0.2, ease: "power2.out",
+            onComplete: () => setSelectedItem(item),
+          })
+        },
     })
   }
 
+  const handlePreviewShow = useCallback((item: MenuItem, el: HTMLButtonElement | null) => {
+    if (!item.image || !el) return
+    const rect = el.getBoundingClientRect()
+    setPreviewPos({ x: rect.left + rect.width / 2, y: rect.top })
+    setPreviewItem(item)
+  }, [])
+
+  const handlePreviewHide = useCallback(() => setPreviewItem(null), [])
+
+  const scrollToTab = (index: number) => {
+    setActiveTab(index)
+    const el = sectionRefs.current[index]
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - 120
+    window.scrollTo({ top, behavior: "smooth" })
+  }
+
   return (
-    <div ref={containerRef} className="min-h-screen pb-24">
-      {/* Sticky Header */}
-      <header
-        ref={headerRef}
-        className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/50"
-      >
-        <div className="flex items-center gap-4 px-4 py-4 max-w-2xl mx-auto">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleBack}
-            className="rounded-full flex-shrink-0"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <div className="min-w-0">
-            <h1 className="font-serif text-xl font-bold text-foreground truncate">
-              {category.name}
-            </h1>
+    <div ref={containerRef} className="min-h-screen bg-background pb-28 relative">
+
+      {/* ── Header ── */}
+      <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-4 pt-3.5 md:px-5">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex items-center justify-between rounded-full border border-[var(--gold)]/15 bg-background/75 px-2.5 py-2 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)]">
+            <div className="flex items-center gap-2.5">
+              <button
+                type="button"
+                onClick={handleBack}
+                className="h-10 w-10 rounded-full border border-[var(--gold)]/15 bg-[var(--gold)]/5 flex items-center justify-center text-foreground/70 hover:text-[var(--gold)] hover:border-[var(--gold)]/30 transition-all duration-200"
+                aria-label="Geri"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <div className="hidden sm:block">
+                <p className="font-display text-sm italic font-medium text-foreground/85 leading-tight">
+                  {category.name}
+                </p>
+                <p className="text-[9px] text-[var(--gold)] font-light tracking-wide">{priceRange}</p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="flex items-center gap-2 rounded-full border border-[var(--gold)]/20 bg-[var(--gold)]/5 px-3.5 py-1.5 hover:border-[var(--gold)]/40 hover:bg-[var(--gold)]/10 transition-all duration-200"
+              aria-label="Tema değiştir"
+            >
+              <div className="relative w-3.5 h-3.5">
+                <Sun className="absolute inset-0 h-3.5 w-3.5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-[var(--gold)]" />
+                <Moon className="absolute inset-0 h-3.5 w-3.5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-[var(--gold)]" />
+              </div>
+              <span className="text-[9px] uppercase tracking-[0.22em] font-light text-foreground/60 dark:block hidden">Dark</span>
+              <span className="text-[9px] uppercase tracking-[0.22em] font-light text-foreground/60 dark:hidden block">Light</span>
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Hero Image */}
-      <div className="relative h-48 md:h-64">
-        <Image
-          src={category.image}
-          alt={category.name}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-      </div>
-
-      {/* Items List */}
-      <div className="px-4 -mt-8 relative z-10 max-w-2xl mx-auto">
-        <div className="space-y-3">
-          {category.items.map((item, index) => (
-            <div
-              key={item.id}
-              ref={(el) => {
-                itemsRef.current[index] = el
-              }}
-              onClick={() => setSelectedItem(item)}
-              className="group flex items-center gap-4 p-4 bg-card rounded-2xl border border-border/50 hover:border-primary/30 cursor-pointer transition-all duration-200 active:scale-[0.99]"
-            >
-              {/* Item Image */}
-              {item.image && (
-                <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden flex-shrink-0">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 64px, 80px"
-                  />
-                </div>
-              )}
-
-              {/* Item Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
-                    {item.name}
-                  </h3>
-                  {item.isNew && (
-                    <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-0 text-[10px] px-1.5 py-0">
-                      Yeni
-                    </Badge>
-                  )}
-                  {item.isPopular && (
-                    <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-0 text-[10px] px-1.5 py-0">
-                      Populer
-                    </Badge>
-                  )}
-                  {item.isSignature && (
-                    <Badge variant="secondary" className="bg-primary/10 text-primary border-0 text-[10px] px-1.5 py-0">
-                      Ozel
-                    </Badge>
-                  )}
-                </div>
-                <p className="text-muted-foreground text-sm mt-1 line-clamp-2">
-                  {item.description}
-                </p>
-              </div>
-
-              {/* Price */}
-              <div className="flex-shrink-0 text-right">
-                <span className="font-serif text-lg font-bold text-primary">
-                  {formatPrice(item.price)}
-                </span>
-              </div>
-            </div>
-          ))}
+      {/* ── Hero ── */}
+      <section ref={heroRef} className="relative h-[46svh] min-h-[300px] w-full overflow-hidden md:h-[55svh] md:min-h-[380px]">
+        <div className="detail-hero-img absolute inset-0 scale-110">
+          <Image src={category.image} alt={category.name} fill priority className="object-cover" sizes="100vw" />
         </div>
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-black/30" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute inset-x-0 bottom-0">
+          <div className="mx-auto max-w-6xl px-5 pb-9 md:pb-12">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-6 bg-[var(--gold)]/70" />
+              <span className="text-[9px] uppercase tracking-[0.32em] text-[var(--gold)] font-light">Seçili kategori</span>
+            </div>
+            <h1 className="font-display text-5xl md:text-7xl font-light italic text-white leading-none tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+              {category.name}
+            </h1>
+            {category.description && (
+              <p className="mt-3 text-sm md:text-base text-white/60 font-light max-w-md">{category.description}</p>
+            )}
+          </div>
+        </div>
+      </section>
 
-      {/* Item Detail Drawer */}
-      <Drawer open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
-        <DrawerContent className="max-h-[90dvh]">
-          <div className="mx-auto w-full max-w-lg overflow-y-auto">
+      {/* ── Content ── */}
+      <section ref={contentRef} className="relative z-10 -mt-2">
+        <div className="mx-auto max-w-6xl px-4 md:px-5">
+          <div className="rounded-[1.8rem] border border-[var(--gold)]/12 bg-card/90 backdrop-blur-sm shadow-[0_24px_60px_-20px_rgba(0,0,0,0.18)] overflow-hidden">
+
+            <div className="flex items-end justify-between px-5 pt-7 pb-5 md:px-7 md:pt-8">
+              <div>
+                <p className="text-[9px] uppercase tracking-[0.28em] text-[var(--gold)] font-light">Menü</p>
+                <h2 className="font-display text-3xl md:text-4xl font-light italic text-foreground mt-1">
+                  Lezzet <span className="font-semibold not-italic">Listesi</span>
+                </h2>
+              </div>
+              <span className="text-xs text-muted-foreground font-light pb-1.5">{category.items.length} ürün</span>
+            </div>
+
+            {/* ── Sticky Tab Nav ── */}
+            {groups.length > 1 && (
+              <div
+                ref={navRef}
+                className={`transition-all duration-300 ${navSticky
+                    ? "sticky top-[60px] z-40 bg-card/95 backdrop-blur-xl border-b border-[var(--gold)]/10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.15)]"
+                    : "border-b border-[var(--gold)]/8"
+                  }`}
+              >
+                <div className="flex items-center gap-1.5 px-4 py-3 md:px-6 overflow-x-auto scrollbar-hide">
+                  {groups.map((group, i) => (
+                    <button
+                      key={group.label}
+                      type="button"
+                      onClick={() => scrollToTab(i)}
+                      className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium whitespace-nowrap transition-all duration-250 flex-shrink-0 ${activeTab === i
+                          ? "bg-[var(--gold)] text-background shadow-[0_4px_12px_-2px_rgba(201,164,110,0.4)]"
+                          : "text-muted-foreground border border-[var(--gold)]/15 hover:border-[var(--gold)]/30 hover:text-foreground"
+                        }`}
+                    >
+                      <span>{group.icon}</span>
+                      {group.label}
+                      <span className={`text-[9px] ${activeTab === i ? "opacity-70" : "opacity-40"}`}>
+                        {group.items.length}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ── Groups ── */}
+            {groups.map((group, gi) => (
+              <div
+                key={group.label}
+                ref={(el) => { sectionRefs.current[gi] = el }}
+              >
+                {groups.length > 1 && (
+                  <div className="flex items-center gap-3 px-5 pt-5 pb-2 md:px-7">
+                    <span className="text-[9px] uppercase tracking-[0.28em] text-[var(--gold)]/70 font-light">{group.label}</span>
+                    <div className="flex-1 h-px bg-[var(--gold)]/10" />
+                  </div>
+                )}
+
+                {!loaded
+                  ? Array.from({ length: 3 }).map((_, si) => <SkeletonItem key={si} />)
+                  : group.items.map((item) => (
+                    <ItemRow
+                      key={item.id}
+                      item={item}
+                      onSelect={handleItemClick}
+                      onPreviewShow={handlePreviewShow}
+                      onPreviewHide={handlePreviewHide}
+                    />
+                  ))
+                }
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Long press preview ── */}
+      {previewItem?.image && (
+        <div
+          className="long-press-preview"
+          style={{
+            left: Math.min(
+              Math.max(previewPos.x - 110, 16),
+              (typeof window !== "undefined" ? window.innerWidth : 400) - 240
+            ),
+            top: Math.max(previewPos.y - 290, 80),
+            width: 220,
+          }}
+        >
+          <div className="relative w-full h-44">
+            <Image src={previewItem.image} alt={previewItem.name} fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" />
+            <div className="absolute bottom-0 inset-x-0 p-3">
+              <p className="font-display text-base italic text-white font-medium leading-tight">{previewItem.name}</p>
+              <p className="font-display text-lg font-semibold text-[var(--gold)] mt-0.5">{formatPrice(previewItem.price)}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Drawer ── */}
+      <Drawer open={!!selectedItem} onOpenChange={(open) => { if (!open) setSelectedItem(null) }}>
+        <DrawerContent className="max-h-[92dvh] border-[var(--gold)]/15 bg-background">
+          <div className="mx-auto w-full max-w-xl overflow-y-auto">
             {selectedItem && (
               <>
-                {/* Drawer Header Image */}
                 {selectedItem.image && (
-                  <div className="relative h-56 md:h-72 w-full">
-                    <Image
-                      src={selectedItem.image}
-                      alt={selectedItem.name}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+                  <div className="relative h-64 w-full md:h-80 overflow-hidden rounded-t-[inherit]">
+                    <Image src={selectedItem.image} alt={selectedItem.name} fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
                     <DrawerClose asChild>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        className="absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur-sm"
-                      >
-                        <X className="w-5 h-5" />
-                      </Button>
+                      <button type="button" className="absolute right-4 top-4 w-10 h-10 rounded-full border border-white/15 bg-black/30 backdrop-blur-lg flex items-center justify-center text-white hover:bg-black/50 transition-colors" aria-label="Kapat">
+                        <X className="h-4 w-4" />
+                      </button>
                     </DrawerClose>
                   </div>
                 )}
 
-                <DrawerHeader className={!selectedItem.image ? "pt-6" : "-mt-12 relative z-10"}>
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <DrawerTitle className="font-serif text-2xl text-left">
+                <DrawerHeader className={selectedItem.image ? "relative z-10 -mt-14 px-4 pb-0 md:px-5" : "px-4 pt-6 pb-0 md:px-5"}>
+                  <div className="rounded-2xl border border-[var(--gold)]/15 bg-card/95 p-5 md:p-6">
+                    <DrawerTitle asChild>
+                      <h2 className="font-display text-3xl md:text-4xl font-light italic text-foreground tracking-tight text-left leading-tight">
                         {selectedItem.name}
-                      </DrawerTitle>
-                      
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {selectedItem.isNew && (
-                          <Badge className="bg-emerald-500 hover:bg-emerald-600">
-                            <Sparkles className="w-3 h-3 mr-1" />
-                            Yeni
-                          </Badge>
-                        )}
-                        {selectedItem.isPopular && (
-                          <Badge className="bg-amber-500 hover:bg-amber-600">
-                            <TrendingUp className="w-3 h-3 mr-1" />
-                            Populer
-                          </Badge>
-                        )}
-                        {selectedItem.isSignature && (
-                          <Badge className="bg-primary hover:bg-primary/90">
-                            <Star className="w-3 h-3 mr-1" />
-                            Ozel
-                          </Badge>
-                        )}
-                        {selectedItem.tags?.map((tag) => (
-                          <Badge key={tag} variant="outline">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
+                      </h2>
+                    </DrawerTitle>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {selectedItem.isNew && (
+                        <span className="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 bg-emerald-500/8 rounded-full px-3 py-1">
+                          <Sparkles className="h-2.5 w-2.5" /> Yeni
+                        </span>
+                      )}
+                      {selectedItem.isPopular && (
+                        <span className="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.18em] text-amber-600 dark:text-amber-400 border border-amber-500/25 bg-amber-500/8 rounded-full px-3 py-1">
+                          <TrendingUp className="h-2.5 w-2.5" /> Popüler
+                        </span>
+                      )}
+                      {selectedItem.isSignature && (
+                        <span className="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.18em] text-[var(--gold)] border border-[var(--gold)]/25 bg-[var(--gold)]/8 rounded-full px-3 py-1">
+                          <Star className="h-2.5 w-2.5" /> Özel
+                        </span>
+                      )}
+                      {selectedItem.tags?.map((tag) => (
+                        <span key={tag} className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground border border-border/60 rounded-full px-3 py-1">{tag}</span>
+                      ))}
                     </div>
                   </div>
                 </DrawerHeader>
 
-                <div className="px-4 pb-8">
-                  {/* Description */}
-                  <p className="text-muted-foreground leading-relaxed">
-                    {selectedItem.description}
-                  </p>
-
-                  {/* Price Card */}
-                  <div className="mt-6 p-6 bg-muted/50 rounded-2xl">
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Fiyat</span>
-                      <span className="font-serif text-3xl font-bold text-primary">
-                        {formatPrice(selectedItem.price)}
-                      </span>
+                <div className="px-4 pb-10 pt-4 md:px-5 md:pb-12">
+                  {selectedItem.description && (
+                    <p className="text-sm md:text-base leading-7 text-muted-foreground font-light">{selectedItem.description}</p>
+                  )}
+                  <div className="mt-6 rounded-2xl border border-[var(--gold)]/18 bg-gradient-to-br from-[var(--gold)]/6 to-[var(--gold)]/2 p-5 flex items-center justify-between">
+                    <div>
+                      <p className="text-[9px] uppercase tracking-[0.25em] text-muted-foreground font-light">Fiyat</p>
+                      <p className="text-xs text-muted-foreground/60 mt-0.5">KDV dahil</p>
                     </div>
+                    <span className="font-display text-5xl font-semibold text-[var(--gold)] tracking-tight leading-none">
+                      {formatPrice(selectedItem.price)}
+                    </span>
                   </div>
-
-                  {/* Note */}
-                  <p className="mt-6 text-xs text-muted-foreground text-center">
-                    Fiyatlara KDV dahildir. Alerjen bilgisi icin personelimize danisabilirsiniz.
+                  <p className="mt-5 text-center text-[10px] text-muted-foreground/50 font-light leading-6 tracking-wide">
+                    Alerjen bilgisi için personelimize danışabilirsiniz.
                   </p>
                 </div>
               </>

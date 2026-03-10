@@ -1,37 +1,27 @@
-import type { Metadata, Viewport } from 'next'
-import { Playfair_Display, Inter } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import { ThemeProvider } from '@/components/theme-provider'
-import './globals.css'
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-serif',
-  display: 'swap',
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-})
+import type { Metadata, Viewport } from "next"
+import { Analytics } from "@vercel/analytics/next"
+import { ThemeProvider } from "@/components/theme-provider"
+import { GSAPProvider } from "@/components/gsap-provider"
+import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
+import { CustomCursor } from "@/components/custom-cursor"
+import "@/app/globals.css"
 
 export const metadata: Metadata = {
-  title: 'The Best Of Coffee Lounge | QR Menu',
-  description: 'El yapimi ozel kahvelerimiz, imza iceceklerimiz ve usta tatlilarimizi kesfedin. Premium kahve deneyimi.',
-  generator: 'v0.app',
+  title: "The Best Of Coffee Lounge | Menü",
+  description:
+    "El yapımı özel kahvelerimiz, imza içeceklerimiz ve usta tatlılarımızı keşfedin. Premium kahve deneyimi.",
   icons: {
-    icon: '/images/logo.png',
-    apple: '/images/logo.png',
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
   },
 }
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f8f6f3' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f0d0a' },
+    { media: "(prefers-color-scheme: light)", color: "#f5f0eb" },
+    { media: "(prefers-color-scheme: dark)", color: "#110b07" },
   ],
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
@@ -44,14 +34,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <CustomCursor />
+          <GSAPProvider>
+            <SmoothScrollProvider>{children}</SmoothScrollProvider>
+          </GSAPProvider>
         </ThemeProvider>
         <Analytics />
       </body>
