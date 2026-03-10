@@ -9,10 +9,11 @@ export function CustomCursor() {
   const [isPointer, setIsPointer] = useState<boolean | null>(null)
 
   useEffect(() => {
-    // Dokunmatik cihazda div'leri hiç render etme
-    const pointer = !window.matchMedia("(pointer: coarse)").matches
-    setIsPointer(pointer)
-    if (!pointer) return
+    setIsPointer(!window.matchMedia("(pointer: coarse)").matches)
+  }, [])
+
+  useEffect(() => {
+    if (!isPointer) return
 
     const dot = dotRef.current
     const ring = ringRef.current
@@ -63,24 +64,27 @@ export function CustomCursor() {
       cancelAnimationFrame(rafId)
       observer.disconnect()
     }
-  }, [])
+  }, [isPointer]) 
 
-  // null = henüz kontrol edilmedi (SSR), false = mobil → ikisinde de render etme
   if (!isPointer) return null
 
   return (
     <>
       <div
         ref={dotRef}
-        style={{ position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 99999,
+        style={{
+          position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 99999,
           width: 6, height: 6, borderRadius: "50%", background: "var(--gold)",
-          transform: "translate(-50%, -50%)" }}
+          transform: "translate(-50%, -50%)",
+        }}
       />
       <div
         ref={ringRef}
-        style={{ position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 99998,
+        style={{
+          position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 99998,
           width: 36, height: 36, borderRadius: "50%", border: "1.5px solid var(--gold)",
-          transform: "translate(-50%, -50%)", opacity: 0.5 }}
+          transform: "translate(-50%, -50%)", opacity: 0.5,
+        }}
       />
     </>
   )

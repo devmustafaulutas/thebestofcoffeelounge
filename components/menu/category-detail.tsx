@@ -19,7 +19,6 @@ interface CategoryDetailProps {
   category: MenuCategory
 }
 
-// ── Long press hook ──
 function useLongPress(onLongPress: () => void, onRelease: () => void, delay = 500) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const fired = useRef(false)
@@ -47,7 +46,6 @@ function useLongPress(onLongPress: () => void, onRelease: () => void, delay = 50
   }
 }
 
-// ── Skeleton ──
 function SkeletonItem() {
   return (
     <div className="flex items-center gap-4 px-5 py-4 md:px-7 md:py-5 border-b border-[var(--gold)]/6">
@@ -62,7 +60,6 @@ function SkeletonItem() {
   )
 }
 
-// ── Item Row ──
 interface ItemRowProps {
   item: MenuItem
   onSelect: (item: MenuItem, el: HTMLButtonElement | null) => void
@@ -92,7 +89,6 @@ function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps)
       <div className="absolute left-0 top-0 w-0.5 h-full bg-[var(--gold)] scale-y-0 group-hover:scale-y-100 origin-center transition-transform duration-300" />
 
       <div className="flex items-center gap-4 px-5 py-4 md:px-7 md:py-5">
-        {/* Image */}
         <div className="relative w-[68px] h-[68px] md:w-[84px] md:h-[84px] flex-shrink-0 rounded-xl overflow-hidden border border-[var(--gold)]/10">
           {item.image ? (
             <Image
@@ -109,7 +105,6 @@ function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps)
           )}
         </div>
 
-        {/* Body */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
@@ -155,7 +150,6 @@ function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps)
   )
 }
 
-// ── Main Component ──
 export function CategoryDetail({ category }: CategoryDetailProps) {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
@@ -173,7 +167,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
   const [activeTab, setActiveTab] = useState(0)
   const [navSticky, setNavSticky] = useState(false)
 
-  // Group items
   const groups = useMemo(() => {
     const signature = category.items.filter(i => i.isSignature)
     const popular = category.items.filter(i => i.isPopular && !i.isSignature)
@@ -190,7 +183,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
     return result
   }, [category.items])
 
-  // Price range
   const priceRange = useMemo(() => {
     const prices = category.items.map(i => i.price)
     const min = Math.min(...prices)
@@ -198,13 +190,11 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
     return min === max ? formatPrice(min) : `${formatPrice(min)} – ${formatPrice(max)}`
   }, [category.items])
 
-  // Simulate skeleton loading
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 700)
     return () => clearTimeout(t)
   }, [])
 
-  // Sticky nav
   useEffect(() => {
     const onScroll = () => {
       const top = contentRef.current?.getBoundingClientRect().top ?? 999
@@ -214,7 +204,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // Active tab via IntersectionObserver
   useEffect(() => {
     if (groups.length <= 1) return
     const observers: IntersectionObserver[] = []
@@ -230,7 +219,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
     return () => observers.forEach(o => o.disconnect())
   }, [groups.length, loaded])
 
-  // GSAP animations
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(headerRef.current,
@@ -304,7 +292,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
   return (
     <div ref={containerRef} className="min-h-screen bg-background pb-28 relative">
 
-      {/* ── Header ── */}
       <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-4 pt-3.5 md:px-5">
         <div className="mx-auto max-w-6xl">
           <div className="flex items-center justify-between rounded-full border border-[var(--gold)]/15 bg-background/75 px-2.5 py-2 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)]">
@@ -342,7 +329,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
         </div>
       </header>
 
-      {/* ── Hero ── */}
       <section ref={heroRef} className="relative h-[46svh] min-h-[300px] w-full overflow-hidden md:h-[55svh] md:min-h-[380px]">
         <div className="detail-hero-img absolute inset-0 scale-110">
           <Image src={category.image} alt={category.name} fill priority className="object-cover" sizes="100vw" />
@@ -365,7 +351,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
         </div>
       </section>
 
-      {/* ── Content ── */}
       <section ref={contentRef} className="relative z-10 -mt-2">
         <div className="mx-auto max-w-6xl px-4 md:px-5">
           <div className="rounded-[1.8rem] border border-[var(--gold)]/12 bg-card/90 backdrop-blur-sm shadow-[0_24px_60px_-20px_rgba(0,0,0,0.18)] overflow-hidden">
@@ -380,7 +365,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
               <span className="text-xs text-muted-foreground font-light pb-1.5">{category.items.length} ürün</span>
             </div>
 
-            {/* ── Sticky Tab Nav ── */}
             {groups.length > 1 && (
               <div
                 ref={navRef}
@@ -411,7 +395,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
               </div>
             )}
 
-            {/* ── Groups ── */}
             {groups.map((group, gi) => (
               <div
                 key={group.label}
@@ -442,7 +425,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
         </div>
       </section>
 
-      {/* ── Long press preview ── */}
       {previewItem?.image && (
         <div
           className="long-press-preview"
@@ -466,7 +448,6 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
         </div>
       )}
 
-      {/* ── Drawer ── */}
       <Drawer open={!!selectedItem} onOpenChange={(open) => { if (!open) setSelectedItem(null) }}>
         <DrawerContent className="max-h-[92dvh] border-[var(--gold)]/15 bg-background">
           <div className="mx-auto w-full max-w-xl overflow-y-auto">

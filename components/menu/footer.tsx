@@ -36,14 +36,9 @@ export function Footer() {
 
   return (
     <footer ref={footerRef} className="relative border-t border-[var(--gold)]/15">
-      {/* Top accent line */}
       <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-[var(--gold)]/50 to-transparent" />
-
-      {/* Background texture */}
       <div className="absolute inset-0 bg-[var(--espresso)]/5 dark:bg-black/30" />
-
       <div ref={contentRef} className="relative mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-        {/* Logo + tagline */}
         <div className="footer-anim text-center mb-14">
           <div className="inline-flex flex-col items-center gap-4">
             <div className="relative w-16 h-16">
@@ -67,7 +62,6 @@ export function Footer() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-[1fr_1.3fr]">
-          {/* Info card */}
           <div className="footer-anim">
             <div className="rounded-2xl border border-[var(--gold)]/12 bg-card/60 backdrop-blur-sm p-6 md:p-8 h-full flex flex-col">
               <p className="font-display text-xl md:text-2xl font-light italic text-foreground mb-2">
@@ -112,7 +106,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Map card */}
           <div className="footer-anim">
             <div className="rounded-2xl border border-[var(--gold)]/12 bg-card/60 backdrop-blur-sm p-3 h-full flex flex-col">
               <div className="px-3 pt-3 pb-4">
@@ -141,7 +134,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="footer-anim mt-10 pt-8 border-t border-[var(--gold)]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground font-light">
             &copy; {new Date().getFullYear()} The Best Of Coffee Lounge — Tüm haklar saklıdır.

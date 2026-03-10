@@ -22,7 +22,6 @@ export function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Set everything invisible
       gsap.set(
         [bgRef.current, logoRef.current, eyebrowRef.current, titleLine1Ref.current,
         titleLine2Ref.current, titleLine3Ref.current, subtitleRef.current,
@@ -46,7 +45,6 @@ export function Hero() {
         .to(scrollRef.current, { opacity: 1, duration: 0.4 }, "-=0.3")
         .to(themeRef.current, { opacity: 1, duration: 0.4 }, "-=0.4")
 
-      // Logo gentle float
       gsap.to(logoRef.current, {
         y: -12,
         duration: 3.5,
@@ -56,7 +54,6 @@ export function Hero() {
         delay: 1.5,
       })
 
-      // Scroll dot pulse
       gsap.to(".scroll-pulse", {
         scaleY: 0.3,
         transformOrigin: "top center",
@@ -66,7 +63,6 @@ export function Hero() {
         ease: "sine.inOut",
       })
 
-      // Parallax on bg image
       gsap.to(".hero-bg-img", {
         yPercent: 20,
         ease: "none",
@@ -87,7 +83,6 @@ export function Hero() {
       ref={containerRef}
       className="relative min-h-[100dvh] flex flex-col items-center justify-center px-6 overflow-hidden"
     >
-      {/* Background */}
       <div ref={bgRef} className="absolute inset-0">
         <div className="hero-bg-img absolute inset-0 scale-110">
           <Image
@@ -98,14 +93,11 @@ export function Hero() {
             priority
           />
         </div>
-        {/* Layered overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(42,20,8,0.3),transparent)]" />
-        {/* Vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]" />
       </div>
 
-      {/* Theme toggle */}
       <button
         ref={themeRef}
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -118,9 +110,7 @@ export function Hero() {
         <span className="text-[10px] uppercase tracking-[0.22em] font-light text-white/70 dark:hidden block">Light mod</span>
       </button>
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-lg w-full">
-        {/* Logo */}
         <div ref={logoRef} className="relative w-24 h-24 md:w-32 md:h-32 mb-10">
           <div className="absolute inset-0 rounded-full bg-[var(--gold)]/20 blur-2xl scale-125" />
           <div className="absolute inset-0 rounded-full border border-[var(--gold)]/30" />
@@ -133,7 +123,6 @@ export function Hero() {
           />
         </div>
 
-        {/* Eyebrow */}
         <div ref={eyebrowRef} className="flex items-center gap-3 mb-7">
           <div className="h-px w-8 bg-[var(--gold)]/60" />
           <span className="text-[10px] uppercase tracking-[0.35em] text-[var(--gold)] font-light">
@@ -142,7 +131,6 @@ export function Hero() {
           <div className="h-px w-8 bg-[var(--gold)]/60" />
         </div>
 
-        {/* Title */}
         <div className="overflow-visible mb-1">
           <div ref={titleLine1Ref} className="font-display text-[8vw] md:text-6xl font-light italic text-white leading-none tracking-tight whitespace-nowrap pr-2">
             the Best Of
@@ -159,21 +147,18 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Divider */}
         <div ref={dividerRef} className="flex items-center gap-4 mb-6 w-full max-w-xs">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[var(--gold)]/50" />
           <div className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]" />
           <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[var(--gold)]/50" />
         </div>
 
-        {/* Subtitle */}
         <p ref={subtitleRef} className="text-white/55 text-sm leading-7 font-light tracking-wide max-w-xs">
           Premium kahve deneyimi için hazırlanmış{" "}
           <span className="text-[var(--gold-light)] font-normal">özel menümüz</span>
         </p>
       </div>
 
-      {/* Scroll indicator */}
       <div ref={scrollRef} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
         <span className="text-[9px] uppercase tracking-[0.3em] text-white/40 font-light">
           Menüyü Keşfet

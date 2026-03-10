@@ -56,7 +56,6 @@ export function CategoryGrid() {
     const el = e.currentTarget.parentElement
     if (!el) { window.location.href = `/menu/${slug}`; return }
 
-    // Haptic scale burst
     gsap.to(el, {
       scale: 0.94,
       duration: 0.12,
@@ -84,7 +83,6 @@ export function CategoryGrid() {
 
   return (
     <section ref={sectionRef} className="relative pb-24">
-      {/* Marquee */}
       <div className="overflow-hidden border-y border-[var(--gold)]/15 bg-[var(--espresso)]/5 dark:bg-[var(--gold)]/3 py-3 mb-16">
         <div className="marquee-inner flex whitespace-nowrap" style={{ width: "200%" }}>
           {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
@@ -97,7 +95,6 @@ export function CategoryGrid() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 md:px-6">
-        {/* Header */}
         <div ref={headerRef} className="mb-14 text-center">
           <div className="flex items-center justify-center gap-4 mb-5">
             <div className="h-px w-12 bg-gradient-to-r from-transparent to-[var(--gold)]/50" />
@@ -112,7 +109,6 @@ export function CategoryGrid() {
           </p>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
           {menuCategories.map((category, index) => (
             <div
