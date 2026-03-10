@@ -50,4 +50,7 @@ next-env.d.ts
 *.swp
 *.swo
 .txt
-.sh
+tree.sh
+
+
+/public
