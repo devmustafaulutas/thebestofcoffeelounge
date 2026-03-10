@@ -84,9 +84,6 @@ export function CategoryDetail({ category, onBack }: CategoryDetailProps) {
             <h1 className="font-serif text-xl font-bold text-foreground truncate">
               {category.name}
             </h1>
-            <p className="text-muted-foreground text-sm">
-              {category.itemCount} urun
-            </p>
           </div>
         </div>
       </header>
