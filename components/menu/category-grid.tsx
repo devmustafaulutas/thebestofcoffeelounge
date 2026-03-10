@@ -137,11 +137,6 @@ export function CategoryGrid() {
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/8 group-hover:ring-[var(--gold)]/30 transition-all duration-500" />
 
                 <div className="relative h-full flex flex-col justify-between p-4 md:p-5">
-                  <div className="flex justify-end">
-                    <div className="text-[9px] uppercase tracking-[0.2em] text-white/50 bg-black/30 backdrop-blur-sm border border-white/10 rounded-full px-2.5 py-1 group-hover:border-[var(--gold)]/30 group-hover:text-[var(--gold)] transition-all duration-300">
-                      {category.itemCount} ürün
-                    </div>
-                  </div>
                   <div>
                     <div className="w-0 h-px bg-[var(--gold)] mb-3 group-hover:w-8 transition-all duration-500 ease-out" />
                     <h3 className="font-display text-xl md:text-2xl font-semibold text-white leading-tight tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
