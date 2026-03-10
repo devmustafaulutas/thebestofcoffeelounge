@@ -1,13 +1,19 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { gsap } from "@/components/gsap-provider"
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
+  const [isPointer, setIsPointer] = useState<boolean | null>(null)
 
   useEffect(() => {
+    // Dokunmatik cihazda div'leri hiç render etme
+    const pointer = !window.matchMedia("(pointer: coarse)").matches
+    setIsPointer(pointer)
+    if (!pointer) return
+
     const dot = dotRef.current
     const ring = ringRef.current
     if (!dot || !ring) return
@@ -47,7 +53,6 @@ export function CustomCursor() {
         el.addEventListener("mouseleave", onLeave)
       })
     }
-
     bindHovers()
 
     const observer = new MutationObserver(bindHovers)
@@ -59,6 +64,9 @@ export function CustomCursor() {
       observer.disconnect()
     }
   }, [])
+
+  // null = henüz kontrol edilmedi (SSR), false = mobil → ikisinde de render etme
+  if (!isPointer) return null
 
   return (
     <>
