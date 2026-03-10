@@ -6,13 +6,64 @@ import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
 import { CustomCursor } from "@/components/custom-cursor"
 import "@/app/globals.css"
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"
+
 export const metadata: Metadata = {
-  title: "The Best Of Coffee Lounge | Menü",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "The Best Of Coffee Lounge | Menü",
+    template: "%s | The Best Of Coffee Lounge",
+  },
   description:
-    "El yapımı özel kahvelerimiz, imza içeceklerimiz ve usta tatlılarımızı keşfedin. Premium kahve deneyimi.",
+    "El yapımı özel kahvelerimiz, imza içeceklerimiz ve usta tatlılarımızı keşfedin. Kocaeli'nin en iyi kahve deneyimi.",
+  keywords: [
+    "kahve", "coffee lounge", "kocaeli kahve", "qr menü",
+    "cappuccino", "latte", "türk kahvesi", "tatlı", "milkshake"
+  ],
+  authors: [{ name: "The Best Of Coffee Lounge" }],
+  creator: "The Best Of Coffee Lounge",
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: BASE_URL,
+    siteName: "The Best Of Coffee Lounge",
+    title: "The Best Of Coffee Lounge | Menü",
+    description: "El yapımı özel kahvelerimiz, imza içeceklerimiz ve usta tatlılarımızı keşfedin.",
+    images: [
+      {
+        url: "/images/logo.jpg", 
+        width: 1200,
+        height: 630,
+        alt: "The Best Of Coffee Lounge",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Best Of Coffee Lounge | Menü",
+    description: "El yapımı özel kahvelerimiz, imza içeceklerimiz ve usta tatlılarımızı keşfedin.",
+    images: ["/images/og-image.jpg"],
+  },
   icons: {
-    icon: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/images/logo.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180" },
+    ],
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/manifest.json",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
   },
 }
 
