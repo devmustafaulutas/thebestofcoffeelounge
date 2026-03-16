@@ -95,8 +95,8 @@ function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps)
               src={item.image}
               alt={item.name}
               fill
+              unoptimized
               className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
-              sizes="(max-width: 768px) 68px, 84px"
             />
           ) : (
             <div className="w-full h-full bg-muted flex items-center justify-center">

@@ -74,8 +74,8 @@ export function Footer() {
               <div className="mt-auto space-y-2.5">
                 {[
                   { icon: MapPin, label: "Adres", value: "The Best of Coffee Lounge", sub: "Kocaeli, Türkiye" },
-                  { icon: Clock, label: "Çalışma Saatleri", value: "09:00 – 23:00", sub: "Her gün açık" },
-                  { icon: Phone, label: "Telefon", value: "+90 xxx xxx xx xx", sub: null },
+                  { icon: Clock, label: "Çalışma Saatleri", value: "09:00 – 00:00", sub: "Her gün açık" },
+                  { icon: Phone, label: "Telefon", value: "+90 537 705 89 21", sub: null },
                 ].map(({ icon: Icon, label, value, sub }) => (
                   <div key={label} className="flex items-center gap-4 rounded-xl border border-border/50 bg-background/60 px-4 py-3.5">
                     <div className="w-9 h-9 flex-shrink-0 rounded-full bg-[var(--gold)]/10 border border-[var(--gold)]/20 flex items-center justify-center text-[var(--gold)]">
