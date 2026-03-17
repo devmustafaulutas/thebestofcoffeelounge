@@ -267,7 +267,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Karamel aromasıyla katmanlı buzlu kahve.",
         price: 185,
         image:
-          "https://images.unsplash.com/photo-1529474944862-8b53b33e28c9?auto=format&fit=crop&w=1200&q=80",
+          "https://images.immediate.co.uk/production/volatile/sites/30/2022/04/Iced-Caramel-Macchiato-f4a10f9.jpg",
         tags: ["Kahve", "Karamel"],
       },
       {
@@ -325,7 +325,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Beyaz çikolatalı buzlu latte.",
         price: 195,
         image:
-          "https://images.unsplash.com/photo-1529474944862-8b53b33e28c9?auto=format&fit=crop&w=1200&q=80",
+          "https://coffeelab.com.tr/wp-content/uploads/2024/08/ice_white_chocolate_mocha.png",
         tags: ["Kahve", "Beyaz Çikolata"],
       },
       {
@@ -344,7 +344,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Kahve bazlı köpüklü frappe.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1200&q=80",
+          "https://lonegoosebakery.com/wp-content/uploads/2025/04/main-caramel-frappuccino-image-500x375.jpg",
         tags: ["Kahve", "Frappe"],
       },
       {
