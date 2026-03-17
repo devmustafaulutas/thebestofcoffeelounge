@@ -83,6 +83,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" suppressHydrationWarning>
+      {/* Developed by Mustafa Ulutaş */}
+      {/* GitHub: https://github.com/devmustafaulutas */}
       <body className="antialiased">
         <ThemeProvider
           attribute="class"

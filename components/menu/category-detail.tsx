@@ -70,7 +70,7 @@ interface ItemRowProps {
 function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps) {
   const btnRef = useRef<HTMLButtonElement>(null)
 
-  const longPress = useLongPress(
+  const { didFire, ...longPressEvents } = useLongPress(
     () => onPreviewShow(item, btnRef.current),
     onPreviewHide,
     500
@@ -81,9 +81,9 @@ function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps)
       ref={btnRef}
       type="button"
       onClick={() => {
-        if (!longPress.didFire()) onSelect(item, btnRef.current)
+        if (!didFire()) onSelect(item, btnRef.current)
       }}
-      {...longPress}
+      {...longPressEvents}
       className="group w-full text-left border-b border-[var(--gold)]/6 last:border-0 hover:bg-[var(--gold)]/3 dark:hover:bg-[var(--gold)]/4 transition-colors duration-200 relative select-none"
     >
       <div className="absolute left-0 top-0 w-0.5 h-full bg-[var(--gold)] scale-y-0 group-hover:scale-y-100 origin-center transition-transform duration-300" />
@@ -369,8 +369,8 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
               <div
                 ref={navRef}
                 className={`transition-all duration-300 ${navSticky
-                    ? "sticky top-[60px] z-40 bg-card/95 backdrop-blur-xl border-b border-[var(--gold)]/10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.15)]"
-                    : "border-b border-[var(--gold)]/8"
+                  ? "sticky top-[60px] z-40 bg-card/95 backdrop-blur-xl border-b border-[var(--gold)]/10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.15)]"
+                  : "border-b border-[var(--gold)]/8"
                   }`}
               >
                 <div className="flex items-center gap-1.5 px-4 py-3 md:px-6 overflow-x-auto scrollbar-hide">
@@ -380,8 +380,8 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
                       type="button"
                       onClick={() => scrollToTab(i)}
                       className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium whitespace-nowrap transition-all duration-250 flex-shrink-0 ${activeTab === i
-                          ? "bg-[var(--gold)] text-background shadow-[0_4px_12px_-2px_rgba(201,164,110,0.4)]"
-                          : "text-muted-foreground border border-[var(--gold)]/15 hover:border-[var(--gold)]/30 hover:text-foreground"
+                        ? "bg-[var(--gold)] text-background shadow-[0_4px_12px_-2px_rgba(201,164,110,0.4)]"
+                        : "text-muted-foreground border border-[var(--gold)]/15 hover:border-[var(--gold)]/30 hover:text-foreground"
                         }`}
                     >
                       <span>{group.icon}</span>

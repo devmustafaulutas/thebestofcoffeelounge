@@ -362,7 +362,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Karamel aromalı yoğun ve köpüklü frappe.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1529474944862-8b53b33e28c9?auto=format&fit=crop&w=1200&q=80",
+          "https://lonegoosebakery.com/wp-content/uploads/2025/04/main-caramel-frappuccino-image-500x375.jpg",
         tags: ["Kahve", "Frappe", "Karamel"],
       },
       {
@@ -480,7 +480,7 @@ export const menuCategories: MenuCategory[] = [
           "Krema ve meyve dokusunu bir araya getiren hafif tatlı.",
         price: 300,
         image:
-          "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80",
+          "https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480/img/recipe/ras/Assets/7b469d4538bb9e2667c540f6c0310f33/Derivates/2cab109c744bce1e7184ce92905d1ecf8295ed08.jpg",
         tags: ["Tatlı"],
       },
       {
@@ -498,7 +498,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Dışı çıtır, içi yumuşak sıcak tatlı.",
         price: 300,
         image:
-          "https://images.unsplash.com/photo-1624697821742-3c10e7bb8d8a?auto=format&fit=crop&w=1200&q=80",
+          "https://i.tmgrup.com.tr/sfr/2026/03/12/churros-1773298380091.jpg",
         tags: ["Tatlı"],
       },
       {
@@ -507,7 +507,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Çikolata soslu klasik profiterol.",
         price: 300,
         image:
-          "https://images.unsplash.com/photo-1568051243858-533a607809a5?auto=format&fit=crop&w=1200&q=80",
+          "https://panayirgourmet.com/cdn/shop/files/profiterol-adet-911886.jpg?v=1718701128",
         tags: ["Tatlı"],
       },
       {
@@ -526,7 +526,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Özel sunumlu pasta seçeneği.",
         price: 300,
         image:
-          "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=80",
+          "https://butikpastacimm.com/img/l/1/kirmizi-kalpli-pasta-2904.jpg",
         tags: ["Tatlı"],
       },
       {
@@ -535,7 +535,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Antep fıstığı karakteri öne çıkan imza tatlı.",
         price: 300,
         image:
-          "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1200&q=80",
+          "https://i.pinimg.com/564x/60/d1/08/60d10869bd57d13fd0e3ae526a3cee42.jpg",
         tags: ["Tatlı", "Fıstıklı"],
         isSignature: true,
       },
@@ -545,7 +545,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Vitrin tipi özel pasta/tatlı seçeneği.",
         price: 300,
         image:
-          "https://images.unsplash.com/photo-1464306076886-da185f6a9d05?auto=format&fit=crop&w=1200&q=80",
+          "https://mycake.com.tr/wp-content/uploads/2021/08/a2.png",
         tags: ["Tatlı"],
       },
     ],
@@ -573,7 +573,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Çilek aromalı serin ve tatlı milkshake.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=1200&q=80",
+          "https://www.bobajoy.com.tr/data/tarif/NYYQiUAsGmsJDNaY.jpg",
         tags: ["Milkshake"],
         isPopular: true,
       },
@@ -583,7 +583,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Yoğun çikolata lezzetli klasik milkshake.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1572490122747-3e9197aa8e42?auto=format&fit=crop&w=1200&q=80",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvYkl3H-ezcQ59pagwPw_o3RhyEnitl1NM5A&s",
         tags: ["Milkshake"],
         isPopular: true,
       },
@@ -593,7 +593,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Karamel tonlu, dolgun kıvamlı milkshake.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1579954115545-a95591f28c9?auto=format&fit=crop&w=1200&q=80",
+          "https://cdn.foodfanatic.com/uploads/2019/05/salted-caramel-milkshake-image-683x1024.jpg",
         tags: ["Milkshake"],
       },
       {
@@ -602,7 +602,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Bisküvi dokulu, tatlı ve yoğun milkshake.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl7iAWPmZFcz8axiUELMLI-woLxJFBlWbP4Q&s",
         tags: ["Milkshake"],
         isSignature: true,
       },
@@ -622,7 +622,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Elma aromalı buzlu ve ferah frozen.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=1200&q=80",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIo7t5EFZm0ZJ6lby78JVCFAQVE_ZXWPzRNA&s",
         tags: ["Frozen"],
       },
       {
@@ -631,7 +631,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Çilek aromalı buz kırıklı frozen içecek.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=1200&q=80",
+          "https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480/img/recipe/ras/Assets/F4D638E7-5367-4B4C-9A96-AFB085CFCDC4/Derivates/6A8EFD21-BA2F-48FB-BC18-A40C3404FFB9.jpg",
         tags: ["Frozen"],
         isPopular: true,
       },
@@ -641,7 +641,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Yoğun meyve notalı mor renkli frozen.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=1200&q=80",
+          "https://lizade.com/app/Images/bogurtlenli-frozen-1668776457_1709106279.jpg",
         tags: ["Frozen"],
       },
     ],
@@ -670,7 +670,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Cam şişede premium su servisi.",
         price: 50,
         image:
-          "https://images.unsplash.com/photo-1519976959117-f9d81f2e0302?auto=format&fit=crop&w=1200&q=80",
+          "https://images.migrosone.com/sanalmarket/product/08060314/8060314_yan-a7b8bf-1650x1650.jpg",
         tags: ["Soğuk İçecek"],
       },
       {
@@ -679,7 +679,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Şişe soğuk çay seçeneği.",
         price: 100,
         image:
-          "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=1200&q=80",
+          "https://images.migrosone.com/sanalmarket/product/08059514/08059514_1-d31993-1650x1650.png",
         tags: ["Soğuk İçecek", "Çay"],
       },
       {
@@ -689,7 +689,7 @@ export const menuCategories: MenuCategory[] = [
           "Soda bazlı, ferah ve kafe menülerinde sevilen karışım.",
         price: 120,
         image:
-          "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=1200&q=80",
+          "https://www.drozdogan.com/images/news/churchill-nedir-tuz-tuketimi-ve-bagirsak-sagligi-1-322073.jpg",
         tags: ["Soğuk İçecek"],
         isPopular: true,
       },
@@ -699,7 +699,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Zencefil aromalı ferah gazoz.",
         price: 90,
         image:
-          "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1200&q=80",
+          "https://static.ticimax.cloud/cdn-cgi/image/width=-,quality=85/50524/uploads/urunresimleri/buyuk/beyoglu-zencefil-aromali-gazoz-250-ml-c0e6-e.jpg",
         tags: ["Gazlı"],
       },
       {
@@ -708,7 +708,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Meyve suyu alternatifi soğuk içecek.",
         price: 100,
         image:
-          "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=1200&q=80",
+          "https://images.migrosone.com/sanalmarket/product/08020126/08020126_1-0219b0-1650x1650.jpg",
         tags: ["Meyveli"],
       },
       {
@@ -717,7 +717,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Ananas aromalı soğuk içecek.",
         price: 90,
         image:
-          "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=1200&q=80",
+          "https://img3.aksam.com.tr/imgsdisk/2024/06/10/untitled5-10062024008121c4.jpg",
         tags: ["Meyveli"],
       },
       {
@@ -726,7 +726,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Lavanta ve incir notalı özel soğuk içecek.",
         price: 100,
         image:
-          "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1200&q=80",
+          "https://images.migrosone.com/hemen/product/08040175/8040175_1-c55818.jpeg",
         tags: ["Özel İçecek"],
         isSignature: true,
       },
@@ -736,7 +736,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Klasik sade soda.",
         price: 60,
         image:
-          "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=1200&q=80",
+          "https://menu.myqrcodemenu.com/files/products/333c6c88-4a30-40e7-9e96-47b23ae65dfc89330beb-2ae3-4558-85d1-89f34f9a41e2.jpg",
         tags: ["Gazlı"],
       },
       {
@@ -745,7 +745,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Klasik gazoz.",
         price: 90,
         image:
-          "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1200&q=80",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZyNLFIdh50ylsRdxCUFRPdCjbKvazD9sTrQ&s",
         tags: ["Gazlı"],
       },
       {
@@ -754,7 +754,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Narenciye aromalı gazoz.",
         price: 90,
         image:
-          "https://images.unsplash.com/photo-1571689936114-b16146cc6136?auto=format&fit=crop&w=1200&q=80",
+          "https://cdn.cimri.io/market/260x260/uludag-200-ml-frutti-extra-mandalinali-gazoz-_1237274.jpg",
         tags: ["Gazlı", "Meyveli"],
       },
       {
@@ -763,7 +763,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Meyvemsi aromalı özel soğuk içecek.",
         price: 90,
         image:
-          "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=1200&q=80",
+          "https://static.ticimax.cloud/cdn-cgi/image/width=-,quality=85/35607/uploads/urunresimleri/buyuk/babanas-karadut-frenk-uzum-aromali-gaz-e3f-43.jpg",
         tags: ["Meyveli"],
       },
       {
@@ -772,7 +772,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Hafif aromalı meyveli soda.",
         price: 70,
         image:
-          "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=1200&q=80",
+          "https://www.aciktimizgara.com/tr/wp-content/uploads/2023/03/meyveli-soda.jpg",
         tags: ["Gazlı", "Meyveli"],
       },
       {
@@ -781,7 +781,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Klasik kola.",
         price: 100,
         image:
-          "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=1200&q=80",
+          "https://www.coca-cola.com/content/dam/onexp/tr/tr/coca-cola-single-page/tr_coca-cola_prod_coca-cola-orijinal-tat_750x750.jpg",
         tags: ["Gazlı"],
         isPopular: true,
       },
@@ -791,7 +791,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Limon aromalı gazlı içecek.",
         price: 100,
         image:
-          "https://images.unsplash.com/photo-1527960471264-932f39eb5846?auto=format&fit=crop&w=1200&q=80",
+          "https://elizinn.com.tr/wp-content/uploads/2022/11/Adsiz-tasarim-15.png",
         tags: ["Gazlı"],
       },
       {
@@ -800,7 +800,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Portakal aromalı gazlı içecek.",
         price: 100,
         image:
-          "https://images.unsplash.com/photo-1625772452859-1c03d884dcd7?auto=format&fit=crop&w=1200&q=80",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9liDQUzV7J9lgD8bbcfpvy0KfaYmG3ZIeA&s",
         tags: ["Gazlı"],
       },
     ],
@@ -820,7 +820,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Daha doyurucu porsiyonda tavuklu pilav.",
         price: 220,
         image:
-          "https://images.unsplash.com/photo-1567529692333-de9fd6772897?auto=format&fit=crop&w=1200&q=80",
+          "https://www.cdnaws.com/i/hancigida/qi2qQLqi2qQZW3D2ZW3D2ZW3D2LHVUkzZW3D2ZW3D2/images/blog/tavuklu-pilav-47.png",
         tags: ["Pilav"],
       },
       {
@@ -829,7 +829,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Klasik tavuklu pilav servisi.",
         price: 160,
         image:
-          "https://images.unsplash.com/photo-1567529692333-de9fd6772897?auto=format&fit=crop&w=1200&q=80",
+          "https://www.cdnaws.com/i/hancigida/qi2qQLqi2qQZW3D2ZW3D2ZW3D2LHVUkzZW3D2ZW3D2/images/blog/tavuklu-pilav-47.png",
         tags: ["Pilav"],
         isPopular: true,
       },
@@ -839,7 +839,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Sote lezzetiyle zenginleştirilmiş pilav.",
         price: 190,
         image:
-          "https://images.unsplash.com/photo-1536304993881-ff86e0c9c842?auto=format&fit=crop&w=1200&q=80",
+          "https://i.pinimg.com/736x/26/c6/06/26c606356ca478752fdd6eede219e397.jpg",
         tags: ["Pilav"],
       },
       {
@@ -848,7 +848,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Büyük porsiyon soteli pilav.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1536304993881-ff86e0c9c842?auto=format&fit=crop&w=1200&q=80",
+          "https://i.pinimg.com/736x/26/c6/06/26c606356ca478752fdd6eede219e397.jpg",
         tags: ["Pilav"],
       },
       {
@@ -857,7 +857,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Ciğer eşliğinde daha yoğun aromalı pilav.",
         price: 170,
         image:
-          "https://images.unsplash.com/photo-1567529692333-de9fd6772897?auto=format&fit=crop&w=1200&q=80",
+          "https://media.tarifikolay.com/img/gen/cigerli-pilav_4x3_656.jpg?w=1200&h=675&fit=crop&s=88ff0797afa99490118632346c2f1127",
         tags: ["Pilav"],
         isSignature: true,
       },
@@ -867,7 +867,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Daha hafif servis için salata eşlikli pilav.",
         price: 150,
         image:
-          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80",
+          "https://www.gurmerehberi.com/wp-content/uploads/2021/11/pilav-salatasi.jpg",
         tags: ["Pilav"],
       },
       {
@@ -877,7 +877,7 @@ export const menuCategories: MenuCategory[] = [
           "Pratik servis edilen dürüm formunda çiğ köfte.",
         price: 110,
         image:
-          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDSmvXmiw-fQUAZaPz9CVXL1Vd-Xj6FBsHoQ&s",
         tags: ["Aparatif"],
       },
       {
@@ -887,7 +887,7 @@ export const menuCategories: MenuCategory[] = [
           "Kıtır dokulu ekstra katmanla servis edilen çiğ köfte.",
         price: 140,
         image:
-          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+          "https://moroccocoffee.com.tr/images/urunler/336_e74d6b2216c1ad4780fa36cc3187054cG.jpg",
         tags: ["Aparatif"],
       },
       {
@@ -896,7 +896,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Tabakta servis edilen çiğ köfte porsiyonu.",
         price: 210,
         image:
-          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+          "https://www.dogerliler.com/urunresim/1613858525045_500x375.jpg",
         tags: ["Aparatif"],
       },
       {
@@ -906,7 +906,7 @@ export const menuCategories: MenuCategory[] = [
           "Sucuk ve kaşar dengesiyle klasik karışık tost.",
         price: 225,
         image:
-          "https://images.unsplash.com/photo-1528736235302-52922df5c122?auto=format&fit=crop&w=1200&q=80",
+          "https://i.lezzet.com.tr/images-xxlarge-recipe/ev-yapimi-nefis-karisik-tost-tarifi-656ec3ae-3cad-4d49-897f-6dcd1d5eee0c.jpg",
         tags: ["Tost"],
         isPopular: true,
       },
@@ -916,7 +916,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Bol kaşarlı sade ve güvenli tercih.",
         price: 200,
         image:
-          "https://images.unsplash.com/photo-1619096252214-ef06c45683e3?auto=format&fit=crop&w=1200&q=80",
+          "https://static.ticimax.cloud/9247/uploads/urunresimleri/buyuk/kasarli-tost-dcb9.jpg",
         tags: ["Tost"],
       },
       {
@@ -925,7 +925,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Daha yoğun aromalı sucuklu tost.",
         price: 200,
         image:
-          "https://images.unsplash.com/photo-1528736235302-52922df5c122?auto=format&fit=crop&w=1200&q=80",
+          "https://www.diyetkolik.com/_next/image?url=https%3A%2F%2Fwww.diyetkolik.com%2Fsite_media%2Fmedia%2Ffoodrecipe_images%2Fkasarlisucuklutost.jpg&w=828&q=75",
         tags: ["Tost"],
       },
       {
@@ -934,7 +934,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Patates kızartması eşlikli sıcak sandviç.",
         price: 210,
         image:
-          "https://images.unsplash.com/photo-1612392062798-3a8d3d7f8859?auto=format&fit=crop&w=1200&q=80",
+          "https://static.ticimax.cloud/cdn-cgi/image/width=540,quality=99/9247/uploads/blog/en-kolay-hot-dog-sosisli-sandvic-tarifi-cda7.jpg",
         tags: ["Sandviç"],
       },
       {
@@ -943,7 +943,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Dışı çıtır, içi yumuşak patates kızartması.",
         price: 180,
         image:
-          "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=1200&q=80",
+          "https://www.kahverengicafe.com.tr/wp-content/uploads/2022/07/patates-nasil-kizartilir-930x620-1.png",
         tags: ["Atıştırmalık"],
       },
       {
@@ -962,7 +962,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Paylaşımlık sunuma uygun karışık çerez tabağı.",
         price: 150,
         image:
-          "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZFGtD96R07xOoxjQFsJyvxmVeDukim4NLSg&s",
         tags: ["Atıştırmalık"],
         isSignature: true,
       },
