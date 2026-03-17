@@ -95,7 +95,8 @@ function ItemRow({ item, onSelect, onPreviewShow, onPreviewHide }: ItemRowProps)
               src={item.image}
               alt={item.name}
               fill
-              unoptimized
+              sizes="(max-width: 768px) 68px, 84px"
+              loading="lazy"
               className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
             />
           ) : (
@@ -438,7 +439,13 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
           }}
         >
           <div className="relative w-full h-44">
-            <Image src={previewItem.image} alt={previewItem.name} fill className="object-cover" />
+            <Image
+              src={previewItem.image}
+              alt={previewItem.name}
+              fill
+              sizes="220px"
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" />
             <div className="absolute bottom-0 inset-x-0 p-3">
               <p className="font-display text-base italic text-white font-medium leading-tight">{previewItem.name}</p>
@@ -455,7 +462,13 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
               <>
                 {selectedItem.image && (
                   <div className="relative h-64 w-full md:h-80 overflow-hidden rounded-t-[inherit]">
-                    <Image src={selectedItem.image} alt={selectedItem.name} fill className="object-cover" />
+                    <Image
+                      src={selectedItem.image}
+                      alt={selectedItem.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 640px"
+                      className="object-cover"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
                     <DrawerClose asChild>
                       <button type="button" className="absolute right-4 top-4 w-10 h-10 rounded-full border border-white/15 bg-black/30 backdrop-blur-lg flex items-center justify-center text-white hover:bg-black/50 transition-colors" aria-label="Kapat">

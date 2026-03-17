@@ -1,6 +1,13 @@
+// app/menu/[slug]/page.tsx
 import { notFound } from "next/navigation"
 import { CategoryDetail } from "@/components/menu/category-detail"
-import { menuCategories } from "@/lib/menu-data"
+import { getMenuCategoryBySlug, getMenuCategorySlugs } from "@/lib/menu-repository"
+
+export const revalidate = 60 * 60
+
+export function generateStaticParams() {
+  return getMenuCategorySlugs().map((slug) => ({ slug }))
+}
 
 interface CategoryDetailPageProps {
   params: Promise<{
@@ -8,14 +15,9 @@ interface CategoryDetailPageProps {
   }>
 }
 
-export default async function CategoryDetailPage({
-  params,
-}: CategoryDetailPageProps) {
+export default async function CategoryDetailPage({ params }: CategoryDetailPageProps) {
   const { slug } = await params
-
-  const category =
-    menuCategories.find((item) => item.slug === slug) ??
-    menuCategories.find((item) => item.id === slug)
+  const category = getMenuCategoryBySlug(slug)
 
   if (!category) {
     notFound()

@@ -953,7 +953,7 @@ export const menuCategories: MenuCategory[] = [
           "Sade atıştırmalık olarak servis edilen mısır tabağı.",
         price: 100,
         image:
-          "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=1200&q=80",
+          "https://www.hisar.com.tr/Data/img/blogPost/7/tr_img_1_37.jpg",
         tags: ["Atıştırmalık"],
       },
       {
