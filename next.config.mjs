@@ -40,6 +40,7 @@ const nextConfig = {
       { protocol: "https", hostname: "www.diyetkolik.com", pathname: "/**" },
       { protocol: "https", hostname: "www.kahverengicafe.com.tr", pathname: "/**" },
       { protocol: "https", hostname: "www.hisar.com.tr", pathname: "/**" },
+      { protocol: "https", hostname: "www.queensleeappetit.com", pathname: "/**" },
     ],
   },
 }

@@ -593,7 +593,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Karamel tonlu, dolgun kıvamlı milkshake.",
         price: 240,
         image:
-          "https://cdn.foodfanatic.com/uploads/2019/05/salted-caramel-milkshake-image-683x1024.jpg",
+          "https://www.queensleeappetit.com/wp-content/uploads/2018/05/Salted-Caramel-Milkshake-9.jpg",
         tags: ["Milkshake"],
       },
       {
