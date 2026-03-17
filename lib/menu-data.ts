@@ -26,7 +26,7 @@ export const menuCategories: MenuCategory[] = [
     name: "Kampanyalar",
     slug: "kampanyalar",
     description: "Tatlı ve sıcak içecek eşleşmeleri tek siparişte.",
-    image: "/images/categories/campaign.png",
+    image: "/images/categories/campaing.png",
     itemCount: 2,
     items: [
       {
@@ -646,7 +646,7 @@ export const menuCategories: MenuCategory[] = [
       },
     ],
   },
- 
+
   {
     id: "soguk-icecekler",
     name: "Soğuk İçecekler",
@@ -805,7 +805,7 @@ export const menuCategories: MenuCategory[] = [
       },
     ],
   },
-   {
+  {
     id: "yiyecekler",
     name: "Yiyecekler",
     slug: "yiyecekler",
