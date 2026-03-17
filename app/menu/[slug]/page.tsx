@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { CategoryDetail } from "@/components/menu/category-detail"
 import { getMenuCategoryBySlug, getMenuCategorySlugs } from "@/lib/menu-repository"
 
-export const revalidate = 60 * 60
+export const revalidate = 3600
 
 export function generateStaticParams() {
   return getMenuCategorySlugs().map((slug) => ({ slug }))

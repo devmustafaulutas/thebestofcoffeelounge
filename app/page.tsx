@@ -3,7 +3,7 @@ import { CategoryGrid } from "@/components/menu/category-grid"
 import { Footer } from "@/components/menu/footer"
 import { getMenuCategorySummaries } from "@/lib/menu-repository"
 
-export const revalidate = 60 * 60
+export const revalidate = 3600
 
 export default async function MenuPage() {
   const categories = getMenuCategorySummaries()
