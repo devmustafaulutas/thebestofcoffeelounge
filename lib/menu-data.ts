@@ -191,6 +191,16 @@ export const menuCategories: MenuCategory[] = [
         tags: ["Geleneksel", "Kahve"],
         isPopular: true,
       },
+        {
+        id: "menengic",
+        name: "Menengiç",
+        description: "Yöresel aroması belirgin, sütlü menengiç içeceği.",
+        price: 120,
+        image:
+          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80",
+        tags: ["Geleneksel" , "Kahve"],
+        isPopular: true,
+      },
       {
         id: "double-turk-kahvesi",
         name: "Double Türk Kahvesi",
@@ -404,16 +414,7 @@ export const menuCategories: MenuCategory[] = [
           "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=1200&q=80",
         tags: ["Sıcak İçecek"],
       },
-      {
-        id: "menengic",
-        name: "Menengiç",
-        description: "Yöresel aroması belirgin, sütlü menengiç içeceği.",
-        price: 120,
-        image:
-          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80",
-        tags: ["Geleneksel"],
-        isSignature: true,
-      },
+    
       {
         id: "caramel-sicak-cikolata",
         name: "Caramel Sıcak Çikolata",
