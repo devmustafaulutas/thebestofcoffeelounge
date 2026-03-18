@@ -49,8 +49,10 @@ next-env.d.ts
 # temporary files
 *.swp
 *.swo
-.txt
+*.txt
 
 tree.sh
 
 *.d.ts
+
+note.txt
