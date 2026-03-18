@@ -133,7 +133,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Günlük taze demlenen yumuşak içimli filtre kahve.",
         price: 125,
         image:
-          "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80",
+          "https://www.theloop7.com/wp-content/uploads/filtre-kahve.jpg",
         tags: ["Kahve"],
       },
       {
@@ -277,7 +277,7 @@ export const menuCategories: MenuCategory[] = [
           "Soğuk servis edilen ekstra shot destekli yoğun kahve.",
         price: 165,
         image:
-          "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=1200&q=80",
+          "https://www.thecoffeepark.com.tr/img/1937645520.jpg",
         tags: ["Kahve", "Yoğun"],
       },
       {
@@ -286,7 +286,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Daha sert, daha koyu ve daha yüksek kafein hissi.",
         price: 180,
         image:
-          "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=1200&q=80",
+          "https://i0.wp.com/www.bikahvearasi.com/wp-content/uploads/2022/08/80.jpg?resize=750%2C750&ssl=1",
         tags: ["Kahve", "Yoğun"],
         isSignature: true,
       },
@@ -296,7 +296,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Buzla servis edilen filtre kahve alternatifi.",
         price: 135,
         image:
-          "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=1200&q=80",
+          "https://www.kahve.com/class/INNOVAEditor/assets/gallery1/cold%20brew.jpg",
         tags: ["Kahve"],
       },
       {
@@ -305,7 +305,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Vanilya notalı yumuşak ve ferah latte.",
         price: 185,
         image:
-          "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=1200&q=80",
+          "https://www.forkinthekitchen.com/wp-content/uploads/2022/08/220629.iced_.latte_.vanilla-9009.jpg",
         tags: ["Kahve", "Vanilya"],
       },
       {
@@ -315,7 +315,7 @@ export const menuCategories: MenuCategory[] = [
           "Çilek ve mocha karakterini bir araya getiren buzlu latte.",
         price: 195,
         image:
-          "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1200&q=80",
+          "https://plantbasedjess.com/wp-content/uploads/2023/08/IMG_7606.jpg",
         tags: ["Kahve", "Çilekli"],
         isSignature: true,
       },
@@ -334,7 +334,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Fındık aromalı kremamsı buzlu latte.",
         price: 195,
         image:
-          "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=1200&q=80",
+          "https://tyberrymuch.com/wp-content/uploads/2024/03/Homemade-Hazelnut-Iced-Coffee.jpg",
         tags: ["Kahve", "Fındık"],
         isPopular: true,
       },
@@ -353,7 +353,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Çikolata notalı soğuk kahve frappe.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1638176066666-ffb2f013c7dd?auto=format&fit=crop&w=1200&q=80",
+          "https://sonistasyon.karekodmenu.net/upload/service/ice-white-chocolate-mocha2.jpg",
         tags: ["Kahve", "Frappe", "Çikolatalı"],
       },
       {
@@ -371,7 +371,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Beyaz çikolata bazlı ferah frappe.",
         price: 240,
         image:
-          "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=1200&q=80",
+          "https://i2.wp.com/bakingmischief.com/wp-content/uploads/2019/05/iced-white-chocolate-mocha-photo-684x1024.jpg",
         tags: ["Kahve", "Frappe", "Beyaz Çikolata"],
         isSignature: true,
       },
@@ -401,7 +401,7 @@ export const menuCategories: MenuCategory[] = [
         description: "Daha yoğun ve büyük porsiyon çay.",
         price: 60,
         image:
-          "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=1200&q=80",
         tags: ["Sıcak İçecek"],
       },
       {
@@ -440,7 +440,7 @@ export const menuCategories: MenuCategory[] = [
           "Beyaz çikolata bazlı daha yumuşak içimli seçenek.",
         price: 170,
         image:
-          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=1200&q=80",
+          "https://www.cdnaws.com/i/197510/ZW3D2Lqi2qQZW3D2QvGYHPsSdwLZW3D2/urunler/6517ffac530ae-6517ffac55e67.jpg",
         tags: ["Sıcak İçecek", "Beyaz Çikolata"],
       },
       {
