@@ -110,21 +110,11 @@ export const menuCategories: MenuCategory[] = [
     itemCount: 2,
     items: [
       {
-        id: "tatli-turk-kahvesi-cay-250",
-        name: "Tatlı + Türk Kahvesi & Çay",
-        description: "Tatlı yanında Türk kahvesi ve çay sunan kampanya seti.",
-        price: 250,
-        image:
-          "/images/products/campaign-one.avif",
-        tags: ["Kampanya"],
-        isPopular: true,
-      },
-      {
         id: "tatli-turk-kahvesi-cay-300",
         name: "Tatlı + Türk Kahvesi & Çay (Premium)",
         description:
-          "Daha yüksek segment tatlı eşleşmesiyle sunulan kampanya seti.",
-        price: 300,
+          "Yüksek segment tatlı eşleşmesiyle sunulan kampanya seti.",
+        price: 350,
         image:
           "/images/products/campaign-one.avif",
         tags: ["Kampanya", "Premium"],
