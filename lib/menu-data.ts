@@ -105,7 +105,7 @@ export const menuCategories: MenuCategory[] = [
     name: "Kampanyalar",
     slug: "kampanyalar",
     description: "Tatlı ve sıcak içecek eşleşmeleri tek siparişte.",
-    image: "/images/categories/campaings.png",
+    image: "/images/categories/campaigns.png",
     itemCount: 2,
     items: [
       {
