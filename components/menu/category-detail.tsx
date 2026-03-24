@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { ArrowLeft, X, Sparkles, TrendingUp, Star, ChevronRight, Sun, Moon } from "lucide-react"
 import { gsap } from "@/components/gsap-provider"
 import { useTheme } from "next-themes"
-import { type MenuCategory, type MenuItem, formatPrice } from "@/lib/menu-data"
+import { type MenuCategory, type MenuItem, type MenuSortGroup, formatPrice } from "@/lib/menu-data"
 import {
   Drawer,
   DrawerContent,
@@ -17,6 +17,25 @@ import {
 
 interface CategoryDetailProps {
   category: MenuCategory
+}
+type DetailGroup = {
+  key: string
+  label: string
+  icon: string
+  items: MenuItem[]
+}
+
+const SORT_GROUP_META: Record<MenuSortGroup, { label: string; icon: string; order: number }> = {
+  espresso: { label: "Espresso Bazlı", icon: "◉", order: 1 },
+  filter: { label: "Filtre Bazlı", icon: "◌", order: 2 },
+  strong: { label: "Yoğun Kahveler", icon: "✦", order: 3 },
+  "milky-classic": { label: "Sütlü Klasikler", icon: "◍", order: 4 },
+  "milky-flavored": { label: "Aromalı Sütlüler", icon: "✿", order: 5 },
+  traditional: { label: "Geleneksel Kahveler", icon: "◆", order: 6 },
+  frappe: { label: "Frappe", icon: "❄", order: 7 },
+  "soft-drink": { label: "Soğuk İçecekler", icon: "◈", order: 8 },
+  snack: { label: "Atıştırmalıklar", icon: "▣", order: 9 },
+  food: { label: "Yiyecekler", icon: "▤", order: 10 },
 }
 
 function useLongPress(onLongPress: () => void, onRelease: () => void, delay = 500) {
@@ -168,20 +187,49 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
   const [activeTab, setActiveTab] = useState(0)
   const [navSticky, setNavSticky] = useState(false)
 
-  const groups = useMemo(() => {
-    const signature = category.items.filter(i => i.isSignature)
-    const popular = category.items.filter(i => i.isPopular && !i.isSignature)
-    const isNew = category.items.filter(i => i.isNew && !i.isPopular && !i.isSignature)
-    const rest = category.items.filter(i => !i.isSignature && !i.isPopular && !i.isNew)
+  const groups = useMemo<DetailGroup[]>(() => {
+    const hasSortGroups = category.items.some((item) => item.sortGroup)
 
-    const result = []
-    if (signature.length) result.push({ label: "Özel", icon: "★", items: signature })
-    if (popular.length) result.push({ label: "Popüler", icon: "🔥", items: popular })
-    if (isNew.length) result.push({ label: "Yeni", icon: "✦", items: isNew })
-    if (rest.length) result.push({ label: "Tümü", icon: "◈", items: rest })
+    if (!hasSortGroups) {
+      return [
+        {
+          key: "all",
+          label: "Tümü",
+          icon: "◈",
+          items: category.items,
+        },
+      ]
+    }
 
-    if (result.length <= 1) return [{ label: "Tümü", icon: "◈", items: category.items }]
-    return result
+    const groupedMap = new Map<MenuSortGroup, MenuItem[]>()
+
+    for (const item of category.items) {
+      if (!item.sortGroup) continue
+
+      const current = groupedMap.get(item.sortGroup) ?? []
+      current.push(item)
+      groupedMap.set(item.sortGroup, current)
+    }
+
+    const result = Array.from(groupedMap.entries())
+      .sort((a, b) => SORT_GROUP_META[a[0]].order - SORT_GROUP_META[b[0]].order)
+      .map(([groupKey, items]) => ({
+        key: groupKey,
+        label: SORT_GROUP_META[groupKey].label,
+        icon: SORT_GROUP_META[groupKey].icon,
+        items,
+      }))
+
+    return result.length
+      ? result
+      : [
+        {
+          key: "all",
+          label: "Tümü",
+          icon: "◈",
+          items: category.items,
+        },
+      ]
   }, [category.items])
 
   const priceRange = useMemo(() => {

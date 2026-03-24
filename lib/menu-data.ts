@@ -1,3 +1,32 @@
+export interface MenuOptionChoice {
+  id: string
+  name: string
+  priceDelta: number
+}
+
+export interface MenuOptionGroup {
+  id: string
+  name: string
+  required?: boolean
+  multiSelect?: boolean
+  maxSelect?: number
+  choices: MenuOptionChoice[]
+}
+
+export type MenuTemperature = "hot" | "iced" | "neutral"
+
+export type MenuSortGroup =
+  | "espresso"
+  | "filter"
+  | "strong"
+  | "milky-classic"
+  | "milky-flavored"
+  | "traditional"
+  | "frappe"
+  | "soft-drink"
+  | "snack"
+  | "food"
+
 export interface MenuItem {
   id: string
   name: string
@@ -8,6 +37,10 @@ export interface MenuItem {
   isNew?: boolean
   isPopular?: boolean
   isSignature?: boolean
+  sortGroup?: MenuSortGroup
+  temperature?: MenuTemperature
+  pairKey?: string
+  optionGroups?: MenuOptionGroup[]
 }
 
 export interface MenuCategory {
@@ -19,6 +52,53 @@ export interface MenuCategory {
   itemCount: number
   items: MenuItem[]
 }
+
+export const blackCoffeeOptionGroups: MenuOptionGroup[] = [
+  {
+    id: "coffee-extras",
+    name: "Ekstralar",
+    multiSelect: true,
+    choices: [
+      { id: "extra-shot", name: "Ekstra Shot", priceDelta: 75 },
+      { id: "extra-milk", name: "Ekstra Süt", priceDelta: 20 },
+    ],
+  },
+]
+
+export const milkCoffeeOptionGroups: MenuOptionGroup[] = [
+  {
+    id: "milk-preference",
+    name: "Süt Tercihi",
+    multiSelect: true,
+    maxSelect: 1,
+    choices: [
+      { id: "lactose-free-milk", name: "Laktozsuz Süt", priceDelta: 25 },
+    ],
+  },
+  {
+    id: "coffee-extras",
+    name: "Ekstralar",
+    multiSelect: true,
+    choices: [
+      { id: "extra-shot", name: "Ekstra Shot", priceDelta: 75 },
+      { id: "extra-milk", name: "Ekstra Süt", priceDelta: 20 },
+    ],
+  },
+]
+
+export const italianSodaOptionGroups: MenuOptionGroup[] = [
+  {
+    id: "italian-soda-flavor",
+    name: "Aroma Seçimi",
+    required: true,
+    choices: [
+      { id: "citrus", name: "Turunç", priceDelta: 0 },
+      { id: "strawberry", name: "Çilek", priceDelta: 0 },
+    ],
+  },
+]
+
+
 export const menuCategories: MenuCategory[] = [
   {
     id: "kampanyalar",
@@ -57,7 +137,7 @@ export const menuCategories: MenuCategory[] = [
     slug: "sicak-kahveler",
     description: "Espresso bazlı klasikler ve yöresel kahve seçenekleri.",
     image: "/images/categories/hot-coffee.jpg",
-    itemCount: 17,
+    itemCount: 22,
     items: [
       {
         id: "espresso-shot",
@@ -66,6 +146,10 @@ export const menuCategories: MenuCategory[] = [
         price: 100,
         image: "/images/products/espresso.jpg",
         tags: ["Kahve"],
+        sortGroup: "espresso",
+        temperature: "hot",
+        pairKey: "espresso-shot",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "double-espresso",
@@ -76,52 +160,71 @@ export const menuCategories: MenuCategory[] = [
         image: "/images/products/espresso.jpg",
         tags: ["Kahve"],
         isPopular: true,
+        sortGroup: "espresso",
+        temperature: "hot",
+        pairKey: "double-espresso",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "americano",
         name: "Americano",
         description: "Espresso bazlı, dengeli ve temiz içimli sıcak kahve.",
         price: 135,
-        image:
-          "/images/products/americano.avif",
+        image: "/images/products/americano.avif",
         tags: ["Kahve"],
         isPopular: true,
+        sortGroup: "espresso",
+        temperature: "hot",
+        pairKey: "americano",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "filtre-kahve",
         name: "Filtre Kahve",
         description: "Günlük taze demlenen yumuşak içimli filtre kahve.",
         price: 125,
-        image:
-          "/images/products/filtre-kahve.jpg",
+        image: "/images/products/filtre-kahve.jpg",
         tags: ["Kahve"],
+        sortGroup: "filter",
+        temperature: "hot",
+        pairKey: "filtre-kahve",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "toffee-nut",
         name: "Toffee Nut",
         description: "Günlük taze demlenen yumuşak içimli filtre kahve.",
         price: 125,
-        image:
-          "/images/products/toffee-nut.jpg",
+        image: "/images/products/toffee-nut.jpg",
         tags: ["Kahve"],
+        sortGroup: "filter",
+        temperature: "hot",
+        pairKey: "toffee-nut",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "red-eye",
         name: "Red Eye",
         description: "Filtre kahve ve ekstra shot ile sert içim sevenlere.",
         price: 155,
-        image:
-          "/images/products/red-eye.webp",
+        image: "/images/products/red-eye.webp",
         tags: ["Kahve", "Yoğun"],
+        sortGroup: "strong",
+        temperature: "hot",
+        pairKey: "red-eye",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "black-eye",
         name: "Black Eye",
         description: "Filtre kahve ve ekstra shot ile sert içim sevenlere.",
         price: 155,
-        image:
-          "/images/products/black-eye.jpg",
+        image: "/images/products/black-eye.jpg",
         tags: ["Kahve", "Yoğun"],
+        sortGroup: "strong",
+        temperature: "hot",
+        pairKey: "black-eye",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "dead-eye",
@@ -129,10 +232,13 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Birden fazla shot ile daha yoğun ve yüksek gövdeli kahve.",
         price: 170,
-        image:
-          "/images/products/dead-eye-coffee.jpeg",
+        image: "/images/products/dead-eye-coffee.jpeg",
         tags: ["Kahve", "Yoğun"],
         isSignature: true,
+        sortGroup: "strong",
+        temperature: "hot",
+        pairKey: "dead-eye",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "cappuccino",
@@ -142,6 +248,10 @@ export const menuCategories: MenuCategory[] = [
         price: 155,
         image: "/images/products/cappuccino.jpg",
         tags: ["Kahve"],
+        sortGroup: "milky-classic",
+        temperature: "hot",
+        pairKey: "cappuccino",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "latte",
@@ -151,6 +261,10 @@ export const menuCategories: MenuCategory[] = [
         image: "/images/products/latte.jpg",
         tags: ["Kahve"],
         isPopular: true,
+        sortGroup: "milky-classic",
+        temperature: "hot",
+        pairKey: "latte",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "flat-white",
@@ -158,37 +272,49 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Yoğun espresso karakterini koruyan ipeksi sütlü kahve.",
         price: 175,
-        image:
-          "/images/products/flat-white-coffee.avif",
+        image: "/images/products/flat-white-coffee.avif",
         tags: ["Kahve"],
+        sortGroup: "milky-classic",
+        temperature: "hot",
+        pairKey: "flat-white",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "vanilya-latte",
         name: "Vanilya Latte",
         description: "Vanilya aromasıyla daha tatlı ve kremamsı latte.",
         price: 175,
-        image:
-          "/images/products/vanillia-latte-coffe.jpg",
+        image: "/images/products/vanillia-latte-coffe.jpg",
         tags: ["Kahve", "Vanilya"],
+        sortGroup: "milky-flavored",
+        temperature: "hot",
+        pairKey: "vanilya-latte",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "mocha",
         name: "Mocha",
         description: "Çikolata dokunuşlu, tatlı ve dolgun aromalı kahve.",
         price: 175,
-        image:
-          "/images/products/mocha-coffee.png",
+        image: "/images/products/mocha-coffee.png",
         tags: ["Kahve", "Çikolatalı"],
         isPopular: true,
+        sortGroup: "milky-flavored",
+        temperature: "hot",
+        pairKey: "mocha",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "white-mocha",
         name: "White Mocha",
         description: "Beyaz çikolata dokulu tatlı ve yumuşak kahve.",
         price: 175,
-        image:
-          "/images/products/white-mocha-coffee.avif",
+        image: "/images/products/white-mocha-coffee.avif",
         tags: ["Kahve", "Beyaz Çikolata"],
+        sortGroup: "milky-flavored",
+        temperature: "hot",
+        pairKey: "white-mocha",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "caramel-macchiato",
@@ -197,16 +323,23 @@ export const menuCategories: MenuCategory[] = [
         price: 175,
         image: "/images/products/caramel-macchiato.jpg",
         tags: ["Kahve", "Karamel"],
+        sortGroup: "milky-flavored",
+        temperature: "hot",
+        pairKey: "caramel-macchiato",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "strawberry-mocha-latte",
         name: "Strawberry Mocha Latte",
         description: "Çilek ve mocha notalarını birleştiren farklı yorum.",
         price: 185,
-        image:
-          "/images/products/strawberry-mocha-latte.jpeg",
+        image: "/images/products/strawberry-mocha-latte.jpeg",
         tags: ["Kahve", "Çilekli"],
         isSignature: true,
+        sortGroup: "milky-flavored",
+        temperature: "hot",
+        pairKey: "strawberry-mocha-latte",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "turk-kahvesi",
@@ -216,6 +349,9 @@ export const menuCategories: MenuCategory[] = [
         image: "/images/products/turkish-coffee.jpg",
         tags: ["Geleneksel", "Kahve"],
         isPopular: true,
+        sortGroup: "traditional",
+        temperature: "hot",
+        pairKey: "turk-kahvesi",
       },
       {
         id: "double-turk-kahvesi",
@@ -225,6 +361,21 @@ export const menuCategories: MenuCategory[] = [
         price: 150,
         image: "/images/products/turkish-coffee.jpg",
         tags: ["Geleneksel", "Kahve"],
+        sortGroup: "traditional",
+        temperature: "hot",
+        pairKey: "double-turk-kahvesi",
+      },
+      {
+        id: "sutlu-turk-kahvesi",
+        name: "Sütlü Türk Kahvesi",
+        description: "Geleneksel sunumlu, yoğun aromalı ve sütlü Türk kahvesi.",
+        price: 150,
+        image: "/images/products/sutlu-turk-kahvesi.webp",
+        tags: ["Geleneksel", "Kahve"],
+        isPopular: true,
+        sortGroup: "traditional",
+        temperature: "hot",
+        pairKey: "sutlu-turk-kahvesi",
       },
       {
         id: "damla-sakizli-turk-kahvesi",
@@ -234,6 +385,9 @@ export const menuCategories: MenuCategory[] = [
         price: 150,
         image: "/images/products/damla-sakizli-turk-kahvesi.jpeg",
         tags: ["Geleneksel", "Kahve"],
+        sortGroup: "traditional",
+        temperature: "hot",
+        pairKey: "damla-sakizli-turk-kahvesi",
       },
       {
         id: "dibek",
@@ -241,20 +395,24 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Yumuşak içimli, aromatik ve geleneksel dibek kahvesi.",
         price: 120,
-        image:
-          "/images/products/dibek-coffee.png",
+        image: "/images/products/dibek-coffee.png",
         tags: ["Geleneksel", "Kahve"],
         isSignature: true,
+        sortGroup: "traditional",
+        temperature: "hot",
+        pairKey: "dibek",
       },
       {
         id: "menengic",
         name: "Menengiç",
         description: "Yöresel aroması belirgin, sütlü menengiç içeceği.",
         price: 120,
-        image:
-          "/images/products/menengic-kahvesi.jpg",
+        image: "/images/products/menengic-kahvesi.jpg",
         tags: ["Geleneksel", "Kahve"],
         isPopular: true,
+        sortGroup: "traditional",
+        temperature: "hot",
+        pairKey: "menengic",
       },
     ],
   },
@@ -265,7 +423,7 @@ export const menuCategories: MenuCategory[] = [
     description:
       "Buzlu espresso bazlı ferah kahve seçenekleri ve frappe çeşitleri.",
     image: "/images/categories/cold-coffee.jpg",
-    itemCount: 15,
+    itemCount: 16,
     items: [
       {
         id: "ice-americano",
@@ -273,19 +431,37 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Temiz içimli, buzlu ve sert karakterli americano.",
         price: 145,
-        image:
-          "/images/products/ice-americano.webp",
+        image: "/images/products/ice-americano.webp",
         tags: ["Kahve"],
         isPopular: true,
+        sortGroup: "espresso",
+        temperature: "iced",
+        pairKey: "americano",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "ice-filtre-kahve",
         name: "Ice Filtre Kahve",
         description: "Buzla servis edilen filtre kahve alternatifi.",
         price: 135,
-        image:
-          "/images/products/ice-filter-coffee.jpg",
+        image: "/images/products/ice-filter-coffee.jpg",
         tags: ["Kahve"],
+        sortGroup: "filter",
+        temperature: "iced",
+        pairKey: "filtre-kahve",
+        optionGroups: blackCoffeeOptionGroups,
+      },
+      {
+        id: "ice-toffee-nut",
+        name: "Ice Toffee Nut",
+        description: "Buzla servis edilen Toffee nut.",
+        price: 135,
+        image: "/images/products/ice-toffe-nut.webp",
+        tags: ["Kahve"],
+        sortGroup: "filter",
+        temperature: "iced",
+        pairKey: "filtre-kahve",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "ice-red-eye",
@@ -293,9 +469,12 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Soğuk servis edilen ekstra shot destekli yoğun kahve.",
         price: 165,
-        image:
-          "/images/products/ice-red-eye.jpg",
+        image: "/images/products/ice-red-eye.jpg",
         tags: ["Kahve", "Yoğun"],
+        sortGroup: "strong",
+        temperature: "iced",
+        pairKey: "red-eye",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "ice-black-eye",
@@ -303,19 +482,25 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Soğuk servis edilen ekstra shot destekli yoğun kahve.",
         price: 165,
-        image:
-          "/images/products/ice-black-eye.jpg",
+        image: "/images/products/ice-black-eye.jpg",
         tags: ["Kahve", "Yoğun"],
+        sortGroup: "strong",
+        temperature: "iced",
+        pairKey: "black-eye",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "ice-dead-eye",
         name: "Ice Dead Eye",
         description: "Daha sert, daha koyu ve daha yüksek kafein hissi.",
         price: 180,
-        image:
-          "/images/products/ice-dead-eye.webp",
+        image: "/images/products/ice-dead-eye.webp",
         tags: ["Kahve", "Yoğun"],
         isSignature: true,
+        sortGroup: "strong",
+        temperature: "iced",
+        pairKey: "dead-eye",
+        optionGroups: blackCoffeeOptionGroups,
       },
       {
         id: "ice-latte",
@@ -325,6 +510,23 @@ export const menuCategories: MenuCategory[] = [
         image: "/images/products/ice-latte.jpg",
         tags: ["Kahve"],
         isPopular: true,
+        sortGroup: "milky-classic",
+        temperature: "iced",
+        pairKey: "latte",
+        optionGroups: milkCoffeeOptionGroups,
+      },
+      {
+        id: "ice-flat-white",
+        name: "Ice Flat White",
+        description: "Buz, süt ve double espresso ile ferah içim.",
+        price: 155,
+        image: "/images/products/ice-flat-white.jpg",
+        tags: ["Kahve"],
+        isPopular: true,
+        sortGroup: "milky-classic",
+        temperature: "iced",
+        pairKey: "latte",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "ice-mocha",
@@ -332,46 +534,61 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Çikolata ve espresso birleşimiyle serinletici seçenek.",
         price: 185,
-        image:
-          "/images/products/ice-mocha.avif",
+        image: "/images/products/ice-mocha.avif",
         tags: ["Kahve", "Çikolatalı"],
+        sortGroup: "milky-flavored",
+        temperature: "iced",
+        pairKey: "mocha",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "ice-caramel-macchiato",
         name: "Ice Caramel Macchiato",
         description: "Karamel aromasıyla katmanlı buzlu kahve.",
         price: 185,
-        image:
-          "/images/products/ice-caramel-machiato.jpg",
+        image: "/images/products/ice-caramel-machiato.jpg",
         tags: ["Kahve", "Karamel"],
+        sortGroup: "milky-flavored",
+        temperature: "iced",
+        pairKey: "caramel-macchiato",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "ice-vanilya-latte",
         name: "Ice Vanilya Latte",
         description: "Vanilya notalı yumuşak ve ferah latte.",
         price: 185,
-        image:
-          "/images/products/ice-vanillia-latte.webp",
+        image: "/images/products/ice-vanillia-latte.webp",
         tags: ["Kahve", "Vanilya"],
+        sortGroup: "milky-flavored",
+        temperature: "iced",
+        pairKey: "vanilya-latte",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "ice-hazelnut-latte",
         name: "Ice Hazelnut Latte",
         description: "Fındık aromalı kremamsı buzlu latte.",
         price: 195,
-        image:
-          "/images/products/ice-hazelnut-coffee.jpg",
+        image: "/images/products/ice-hazelnut-coffee.jpg",
         tags: ["Kahve", "Fındık"],
         isPopular: true,
+        sortGroup: "milky-flavored",
+        temperature: "iced",
+        pairKey: "ice-hazelnut-latte",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "ice-white-mocha-latte",
         name: "Ice White Mocha Latte",
         description: "Beyaz çikolatalı buzlu latte.",
         price: 195,
-        image:
-          "/images/products/ice-white-chochlate-latte.png",
+        image: "/images/products/ice-white-chochlate-latte.png",
         tags: ["Kahve", "Beyaz Çikolata"],
+        sortGroup: "milky-flavored",
+        temperature: "iced",
+        pairKey: "white-mocha",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "ice-strawberry-mocha-latte",
@@ -379,47 +596,54 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Çilek ve mocha karakterini bir araya getiren buzlu latte.",
         price: 195,
-        image:
-          "/images/products/ice-strawberry-mocha-latte.webp",
+        image: "/images/products/ice-strawberry-mocha-latte.webp",
         tags: ["Kahve", "Çilekli"],
         isSignature: true,
+        sortGroup: "milky-flavored",
+        temperature: "iced",
+        pairKey: "strawberry-mocha-latte",
+        optionGroups: milkCoffeeOptionGroups,
       },
       {
         id: "coffee-frappe",
         name: "Coffee Frappe",
         description: "Kahve bazlı köpüklü frappe.",
         price: 240,
-        image:
-          "/images/products/coffee-frappe.jpg",
+        image: "/images/products/coffee-frappe.jpg",
         tags: ["Kahve", "Frappe"],
+        sortGroup: "frappe",
+        temperature: "iced",
       },
       {
         id: "mocha-frappe",
         name: "Mocha Frappe",
         description: "Çikolata notalı soğuk kahve frappe.",
         price: 240,
-        image:
-          "/images/products/ice-mocha-frappe.jpg",
+        image: "/images/products/ice-mocha-frappe.jpg",
         tags: ["Kahve", "Frappe", "Çikolatalı"],
+        sortGroup: "frappe",
+        temperature: "iced",
       },
       {
         id: "caramel-frappe",
         name: "Caramel Frappe",
         description: "Karamel aromalı yoğun ve köpüklü frappe.",
         price: 240,
-        image:
-          "/images/products/caramel-frappe.jpg",
+        image: "/images/products/caramel-frappe.jpg",
         tags: ["Kahve", "Frappe", "Karamel"],
+        sortGroup: "frappe",
+        temperature: "iced",
       },
       {
         id: "white-mocha-frappe",
         name: "White Mocha Frappe",
         description: "Beyaz çikolata bazlı ferah frappe.",
         price: 240,
-        image:
-          "/images/products/white-mocha-frappe.webp",
+        image: "/images/products/white-mocha-frappe.webp",
         tags: ["Kahve", "Frappe", "Beyaz Çikolata"],
         isSignature: true,
+        sortGroup: "frappe",
+        temperature: "iced",
       },
     ],
   },
@@ -429,15 +653,14 @@ export const menuCategories: MenuCategory[] = [
     slug: "sicak-icecekler",
     description: "Kahve dışı sıcak içecekler ve kış favorileri.",
     image: "/images/categories/hot-drinks.jpg",
-    itemCount: 8,
+    itemCount: 25,
     items: [
       {
         id: "cay",
         name: "Çay",
         description: "Gün boyu tercih edilen klasik demli çay.",
         price: 40,
-        image:
-          "/images/products/cay.jpeg",
+        image: "/images/products/cay.jpeg",
         tags: ["Sıcak İçecek"],
         isPopular: true,
       },
@@ -446,17 +669,23 @@ export const menuCategories: MenuCategory[] = [
         name: "Duble Çay",
         description: "Daha yoğun ve büyük porsiyon çay.",
         price: 60,
-        image:
-          "/images/products/cay.jpeg",
+        image: "/images/products/cay.jpeg",
         tags: ["Sıcak İçecek"],
+      },
+      {
+        id: "chai-tea-latte",
+        name: "Chai Tea Latte",
+        description: "Baharat notalı, sütlü ve yumuşak içimli chai tea latte.",
+        price: 180,
+        image: "/images/products/chai-tea-latte.webp",
+        tags: ["Sıcak İçecek", "Çay", "Sütlü"],
       },
       {
         id: "salep",
         name: "Salep",
         description: "Tarçınla tamamlanan kışlık klasik salep.",
         price: 170,
-        image:
-          "/images/products/salep.jpg",
+        image: "/images/products/salep.jpg",
         tags: ["Sıcak İçecek"],
         isPopular: true,
       },
@@ -465,19 +694,16 @@ export const menuCategories: MenuCategory[] = [
         name: "Sıcak Çikolata",
         description: "Yoğun kakao lezzetiyle klasik sıcak çikolata.",
         price: 170,
-        image:
-          "/images/products/hot-chochlate.avif",
+        image: "/images/products/hot-chochlate.avif",
         tags: ["Sıcak İçecek", "Çikolatalı"],
         isPopular: true,
       },
       {
         id: "beyaz-sicak-cikolata",
         name: "Beyaz Sıcak Çikolata",
-        description:
-          "Beyaz çikolata bazlı daha yumuşak içimli seçenek.",
+        description: "Beyaz çikolata bazlı daha yumuşak içimli seçenek.",
         price: 170,
-        image:
-          "/images/products/white-choclate.jpg",
+        image: "/images/products/white-choclate.jpg",
         tags: ["Sıcak İçecek", "Beyaz Çikolata"],
       },
       {
@@ -485,8 +711,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Caramel Sıcak Çikolata",
         description: "Karamel dokunuşlu yoğun sıcak çikolata.",
         price: 190,
-        image:
-          "/images/products/caramel-hot-chochlate.avif",
+        image: "/images/products/caramel-hot-chochlate.avif",
         tags: ["Sıcak İçecek", "Çikolatalı"],
       },
       {
@@ -494,11 +719,158 @@ export const menuCategories: MenuCategory[] = [
         name: "Çilekli Sıcak Çikolata",
         description: "Meyvemsi dokunuşlu sıcak çikolata yorumu.",
         price: 190,
-        image:
-          "/images/products/strawberry-hot-chochlate.jpg",
+        image: "/images/products/strawberry-hot-chochlate.jpg",
         tags: ["Sıcak İçecek", "Çikolatalı"],
         isSignature: true,
       },
+      {
+        id: "ihlamur",
+        name: "Ihlamur",
+        description: "Yumuşak içimli klasik ıhlamur.",
+        price: 180,
+        image: "/images/products/ıhlamur.jpg",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+      },
+      {
+        id: "kis-cayi",
+        name: "Kış Çayı",
+        description: "Soğuk havalar için baharat ve bitki karışımlı kış çayı.",
+        price: 180,
+        image: "/images/products/kıs-cayi.jpg",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+        isPopular: true,
+      },
+      {
+        id: "ada-cayi",
+        name: "Ada Çayı",
+        description: "Ferah aromalı geleneksel ada çayı.",
+        price: 180,
+        image: "/images/products/ada-cayi.jpeg",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+      },
+      {
+        id: "papatya-cayi",
+        name: "Papatya Çayı",
+        description: "Yumuşak ve hafif içimli papatya çayı.",
+        price: 180,
+        image: "/images/products/papatya-cayi.jpg",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+      },
+      {
+        id: "rezene",
+        name: "Rezene",
+        description: "Hafif ve bitkisel aromalı rezene çayı.",
+        price: 180,
+        image: "/images/products/rezene.webp",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+      },
+      {
+        id: "yesil-cay",
+        name: "Yeşil Çay",
+        description: "Hafif ve dengeli içimli yeşil çay.",
+        price: 180,
+        image: "/images/products/yesil-cay.webp",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+      },
+      {
+        id: "nane-limon-bitki-cayi",
+        name: "Nane Limon Bitki Çayı",
+        description: "Bitkisel demleme ile hazırlanan klasik nane limon.",
+        price: 180,
+        image: "/images/products/nane-limon.webp",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+      },
+      {
+        id: "atom-cayi",
+        name: "Atom Çayı",
+        description: "Bitkisel demleme ile hazırlanan klasik atom çayı.",
+        price: 180,
+        image: "/images/products/atom-cayi.webp",
+        tags: ["Sıcak İçecek", "Bitki Çayı"],
+      },
+
+
+      {
+        id: "oralet",
+        name: "Oralet",
+        description: "Klasik aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/oralet.jpeg",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+      {
+        id: "kivi-oralet",
+        name: "Kivi Oralet",
+        description: "Kivi aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/orolet.avif",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+      {
+        id: "kusburnu-oralet",
+        name: "Kuşburnu Oralet",
+        description: "Kuşburnu aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/kusburnu-oralet.jpg",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+      {
+        id: "elma-oralet",
+        name: "Elma Oralet",
+        description: "Elma aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/elma-oralet.jpg",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+      {
+        id: "portakal-oralet",
+        name: "Portakal Oralet",
+        description: "Portakal aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/portakallı-oralet.png",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+      {
+        id: "muz-oralet",
+        name: "Muz Oralet",
+        description: "Muz aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/muzlu-oralet.jpeg",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+      {
+        id: "kakao",
+        name: "Kakao",
+        description: "Kakao aromalı sıcak içecek.",
+        price: 40,
+        image: "/images/products/kakao.jpg",
+        tags: ["Sıcak İçecek", "Kakaolu"],
+      },
+      {
+        id: "nane-limon-40",
+        name: "Nane Limon",
+        description: "Nane ve limon aromalı hafif sıcak içecek.",
+        price: 40,
+        image: "/images/products/nane-limon-aromali-toz-icecek.jpg",
+        tags: ["Sıcak İçecek", "Bitkisel"],
+      },
+      {
+        id: "karadut-oralet",
+        name: "Karadut Oralet",
+        description: "Karadut aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/karadut.png",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+      {
+        id: "limon-oralet",
+        name: "Limon Oralet",
+        description: "Limon aromalı sıcak oralet içeceği.",
+        price: 40,
+        image: "/images/products/limon.webp",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
+
     ],
   },
   {
@@ -507,7 +879,7 @@ export const menuCategories: MenuCategory[] = [
     slug: "tatlilar",
     description: "Kahve yanına güçlü eşlik eden vitrindeki tatlılar.",
     image: "/images/categories/desserts.jpg",
-    itemCount: 8,
+    itemCount: 15,
     items: [
       {
         id: "tiramisu",
@@ -531,11 +903,9 @@ export const menuCategories: MenuCategory[] = [
       {
         id: "magnolia",
         name: "Magnolia",
-        description:
-          "Krema ve meyve dokusunu bir araya getiren hafif tatlı.",
+        description: "Krema ve meyve dokusunu bir araya getiren hafif tatlı.",
         price: 300,
-        image:
-          "/images/products/magnolia.avif",
+        image: "/images/products/magnolia.avif",
         tags: ["Tatlı"],
       },
       {
@@ -543,8 +913,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Profiterol",
         description: "Çikolata soslu klasik profiterol.",
         price: 300,
-        image:
-          "/images/products/profiterol.webp",
+        image: "/images/products/profiterol.webp",
         tags: ["Tatlı"],
       },
       {
@@ -552,17 +921,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Churros",
         description: "Dışı çıtır, içi yumuşak sıcak tatlı.",
         price: 300,
-        image:
-          "/images/products/churros.jpg",
-        tags: ["Tatlı"],
-      },
-      {
-        id: "latte-mono",
-        name: "Latte Mono",
-        description: "Vitrin tipi özel pasta/tatlı seçeneği.",
-        price: 300,
-        image:
-          "/images/products/latte-mono.png",
+        image: "/images/products/churros.jpg",
         tags: ["Tatlı"],
       },
       {
@@ -570,8 +929,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Fıstık Rüyası",
         description: "Antep fıstığı karakteri öne çıkan imza tatlı.",
         price: 300,
-        image:
-          "/images/products/fistik-ruyasi.jpg",
+        image: "/images/products/fistik-ruyasi.jpg",
         tags: ["Tatlı", "Fıstıklı"],
         isSignature: true,
       },
@@ -580,8 +938,71 @@ export const menuCategories: MenuCategory[] = [
         name: "Kalp Pasta",
         description: "Özel sunumlu pasta seçeneği.",
         price: 300,
-        image:
-          "/images/products/kalpli-pasta.jpeg",
+        image: "/images/products/kalpli-pasta.jpeg",
+        tags: ["Tatlı"],
+      },
+      {
+        id: "ibiza",
+        name: "Ibiza",
+        description: "Katmanlı yapısı ve yoğun kremasıyla özel vitrın tatlısı.",
+        price: 300,
+        image: "/images/products/ibiza.webp",
+        tags: ["Tatlı"],
+      },
+      {
+        id: "visneli-suffle",
+        name: "Vişneli Suffle",
+        description: "Vişne dokunuşlu, yumuşak dolgulu sıcak suffle.",
+        price: 300,
+        image: "/images/products/vişneli-suffle.jpg",
+        tags: ["Tatlı"],
+      },
+      {
+        id: "bademli-suffle",
+        name: "Bademli Suffle",
+        description: "Badem notalarıyla zenginleşen sıcak suffle.",
+        price: 300,
+        image: "/images/products/bademli-suffle.avif",
+        tags: ["Tatlı", "Bademli"],
+      },
+      {
+        id: "bella-vista",
+        name: "Bella Vista",
+        description: "Özel sunumlu, katmanlı ve kremamsı vitrın tatlısı.",
+        price: 300,
+        image: "/images/products/bella-vista.webp",
+        tags: ["Tatlı"],
+      },
+      {
+        id: "orman-rulo",
+        name: "Orman Rulo",
+        description: "Meyvemsi ve kakaolu katmanlarla hazırlanan rulo tatlı.",
+        price: 300,
+        image: "/images/products/orman-rulo.jpg",
+        tags: ["Tatlı"],
+      },
+      {
+        id: "frambuaz-cheesecake",
+        name: "Cheesecake Frambuaz",
+        description: "Frambuaz soslu, dengeli ve yumuşak cheesecake.",
+        price: 250,
+        image: "/images/products/cheese-cake-frambuaz.jpg",
+        tags: ["Tatlı", "Cheesecake"],
+      },
+      {
+        id: "limon-cheesecake",
+        name: "Cheesecake Limon",
+        description: "Limon aromalı, ferah bitişli cheesecake.",
+        price: 250,
+        image: "/images/products/cheese-cake-lemon.jpg",
+        tags: ["Tatlı", "Cheesecake"],
+      },
+      {
+        id: "cookie-pie",
+        name: "Cookie Pie",
+        description: "Yoğun kurabiye dokulu, dolgun ve tatmin edici tatlı.",
+        price: 300,
+        image: "/images/products/cookie-pie.jpg",
         tags: ["Tatlı"],
       },
     ],
@@ -733,43 +1154,47 @@ export const menuCategories: MenuCategory[] = [
     slug: "soguk-icecekler",
     description: "Gazlı, meyveli ve şişe içecek seçenekleri.",
     image: "/images/categories/cold-drinks.jpg",
-    itemCount: 16,
+    itemCount: 17,
     items: [
       {
         id: "su",
         name: "Su",
         description: "Günlük serinleme için klasik şişe su.",
         price: 40,
-        image:
-          "/images/products/water.avif",
+        image: "/images/products/water.avif",
         tags: ["Soğuk İçecek"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "cam-su",
         name: "Cam Su",
         description: "Cam şişede premium su servisi.",
         price: 50,
-        image:
-          "/images/products/damla-water.jpg",
+        image: "/images/products/damla-water.jpg",
         tags: ["Soğuk İçecek"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "sade-soda",
         name: "Sade Soda",
         description: "Klasik sade soda.",
         price: 60,
-        image:
-          "/images/products/beypazari.jpg",
+        image: "/images/products/beypazari.jpg",
         tags: ["Gazlı"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "meyveli-soda",
         name: "Meyveli Soda",
         description: "Hafif aromalı meyveli soda.",
         price: 70,
-        image:
-          "/images/products/frutti.jpg",
+        image: "/images/products/frutti.jpg",
         tags: ["Gazlı", "Meyveli"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "churchill",
@@ -777,74 +1202,82 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Soda bazlı, ferah ve kafe menülerinde sevilen karışım.",
         price: 120,
-        image:
-          "/images/products/churchill.jpg",
+        image: "/images/products/churchill.jpg",
         tags: ["Soğuk İçecek"],
         isPopular: true,
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "gazoz",
         name: "Gazoz",
         description: "Klasik gazoz.",
         price: 90,
-        image:
-          "/images/products/nigde-gazoz.jpeg",
+        image: "/images/products/nigde-gazoz.jpeg",
         tags: ["Gazlı"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "zencefil-gazoz",
         name: "Zencefil Gazoz",
         description: "Zencefil aromalı ferah gazoz.",
         price: 90,
-        image:
-          "/images/products/beyoglu-zencefil-aromali-gazoz.jpg",
+        image: "/images/products/beyoglu-zencefil-aromali-gazoz.jpg",
         tags: ["Gazlı"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "mandalinali-gazoz",
         name: "Mandalinalı Gazoz",
         description: "Narenciye aromalı gazoz.",
         price: 90,
-        image:
-          "/images/products/frutti.avif",
+        image: "/images/products/frutti.avif",
         tags: ["Gazlı", "Meyveli"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "cola",
         name: "Cola",
         description: "Klasik kola.",
         price: 100,
-        image:
-          "/images/products/coca-cola.webp",
+        image: "/images/products/coca-cola.webp",
         tags: ["Gazlı"],
         isPopular: true,
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "fanta",
         name: "Fanta",
         description: "Portakal aromalı gazlı içecek.",
         price: 100,
-        image:
-          "/images/products/fanta.jpeg",
+        image: "/images/products/fanta.jpeg",
         tags: ["Gazlı"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "sprite",
         name: "Sprite",
         description: "Limon aromalı gazlı içecek.",
         price: 100,
-        image:
-          "/images/products/sprite.png",
+        image: "/images/products/sprite.png",
         tags: ["Gazlı"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "fuse-tea",
         name: "Fuse Tea",
         description: "Şişe soğuk çay seçeneği.",
         price: 100,
-        image:
-          "/images/products/fuse-tea.jpeg",
+        image: "/images/products/fuse-tea.jpeg",
         tags: ["Soğuk İçecek", "Çay"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "italian-soda",
@@ -852,46 +1285,52 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Turunç veya çilek opsiyonlu, ferah ve gazlı özel soğuk içecek.",
         price: 180,
-        image:
-          "/images/products/italian-soda.avif",
+        image: "/images/products/italian-soda.avif",
         tags: ["Soğuk İçecek", "Gazlı", "Meyveli"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
+        optionGroups: italianSodaOptionGroups,
       },
       {
         id: "cappy",
         name: "Cappy",
         description: "Meyve suyu alternatifi soğuk içecek.",
         price: 100,
-        image:
-          "/images/products/cappy.jpg",
+        image: "/images/products/cappy.jpg",
         tags: ["Meyveli"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "ananas",
         name: "Ananas",
         description: "Ananas aromalı soğuk içecek.",
         price: 90,
-        image:
-          "/images/products/pineapple.webp",
+        image: "/images/products/pineapple.webp",
         tags: ["Meyveli"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "babanas",
         name: "Babanas",
         description: "Meyvemsi aromalı özel soğuk içecek.",
         price: 90,
-        image:
-          "/images/products/babanas.jpg",
+        image: "/images/products/babanas.jpg",
         tags: ["Meyveli"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
       {
         id: "avoya-incir-lavanta",
         name: "Avoya İncir Lavanta",
         description: "Lavanta ve incir notalı özel soğuk içecek.",
         price: 100,
-        image:
-          "/images/products/avoya.jpeg",
+        image: "/images/products/avoya.jpeg",
         tags: ["Özel İçecek"],
         isSignature: true,
+        sortGroup: "soft-drink",
+        temperature: "neutral",
       },
     ],
   },
@@ -902,15 +1341,14 @@ export const menuCategories: MenuCategory[] = [
     description:
       "Pilav, tost, atıştırmalık ve hızlı servis ürünleri tek başlıkta.",
     image: "/images/categories/food.jpg",
-    itemCount: 16,
+    itemCount: 14,
     items: [
       {
         id: "tavuklu-pilav",
         name: "Tavuklu Pilav",
         description: "Klasik tavuklu pilav servisi.",
         price: 160,
-        image:
-          "/images/products/tavuk-pilav.png",
+        image: "/images/products/tavuk-pilav.png",
         tags: ["Pilav"],
         isPopular: true,
       },
@@ -919,8 +1357,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Tavuklu Pilav 1.5 Porsiyon",
         description: "Daha doyurucu porsiyonda tavuklu pilav.",
         price: 220,
-        image:
-          "/images/products/tavuk-pilav.png",
+        image: "/images/products/tavuk-pilav.png",
         tags: ["Pilav"],
       },
       {
@@ -928,8 +1365,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Soteli Pilav",
         description: "Sote lezzetiyle zenginleştirilmiş pilav.",
         price: 190,
-        image:
-          "/images/products/tavuk-sote-pilav.jpg",
+        image: "/images/products/tavuk-sote-pilav.jpg",
         tags: ["Pilav"],
       },
       {
@@ -937,8 +1373,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Soteli Pilav 1.5 Porsiyon",
         description: "Büyük porsiyon soteli pilav.",
         price: 240,
-        image:
-          "/images/products/tavuk-sote-pilav.jpg",
+        image: "/images/products/tavuk-sote-pilav.jpg",
         tags: ["Pilav"],
       },
       {
@@ -946,8 +1381,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Ciğerli Pilav",
         description: "Ciğer eşliğinde daha yoğun aromalı pilav.",
         price: 170,
-        image:
-          "/images/products/ciger-pilav.jpg",
+        image: "/images/products/ciger-pilav.jpg",
         tags: ["Pilav"],
         isSignature: true,
       },
@@ -956,18 +1390,15 @@ export const menuCategories: MenuCategory[] = [
         name: "Salatalı Pilav",
         description: "Daha hafif servis için salata eşlikli pilav.",
         price: 150,
-        image:
-          "/images/products/pilav-salatasi.webp",
+        image: "/images/products/pilav-salatasi.webp",
         tags: ["Pilav"],
       },
       {
         id: "cig-kofte-durum",
         name: "Çiğ Köfte Dürüm",
-        description:
-          "Pratik servis edilen dürüm formunda çiğ köfte.",
+        description: "Pratik servis edilen dürüm formunda çiğ köfte.",
         price: 110,
-        image:
-          "/images/products/cig-kofte-durum.jpeg",
+        image: "/images/products/cig-kofte-durum.jpeg",
         tags: ["Aparatif"],
       },
       {
@@ -976,8 +1407,7 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Kıtır dokulu ekstra katmanla servis edilen çiğ köfte.",
         price: 140,
-        image:
-          "/images/products/doritoslu-cig-kofte-durum.jpg",
+        image: "/images/products/doritoslu-cig-kofte-durum.jpg",
         tags: ["Aparatif"],
       },
       {
@@ -985,8 +1415,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Çiğ Köfte Porsiyon",
         description: "Tabakta servis edilen çiğ köfte porsiyonu.",
         price: 210,
-        image:
-          "/images/products/cig-kofte-porsiyon.jpg",
+        image: "/images/products/cig-kofte-porsiyon.jpg",
         tags: ["Aparatif"],
       },
       {
@@ -994,8 +1423,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Kaşarlı Tost",
         description: "Bol kaşarlı sade ve güvenli tercih.",
         price: 200,
-        image:
-          "/images/products/kasarli-tost.webp",
+        image: "/images/products/kasarli-tost.webp",
         tags: ["Tost"],
       },
       {
@@ -1003,8 +1431,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Sucuklu Tost",
         description: "Daha yoğun aromalı sucuklu tost.",
         price: 200,
-        image:
-          "/images/products/sucuklu-tost.avif",
+        image: "/images/products/sucuklu-tost.avif",
         tags: ["Tost"],
       },
       {
@@ -1013,8 +1440,7 @@ export const menuCategories: MenuCategory[] = [
         description:
           "Sucuk ve kaşar dengesiyle klasik karışık tost.",
         price: 225,
-        image:
-          "/images/products/karisik-tost.jpg",
+        image: "/images/products/karisik-tost.jpg",
         tags: ["Tost"],
         isPopular: true,
       },
@@ -1023,8 +1449,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Sosisli",
         description: "Patates kızartması eşlikli sıcak sandviç.",
         price: 210,
-        image:
-          "/images/products/sosisli.jpg",
+        image: "/images/products/sosisli.jpg",
         tags: ["Sandviç"],
       },
       {
@@ -1032,32 +1457,38 @@ export const menuCategories: MenuCategory[] = [
         name: "Patates Tabağı",
         description: "Dışı çıtır, içi yumuşak patates kızartması.",
         price: 180,
-        image:
-          "/images/products/patates-tabagi.png",
+        image: "/images/products/patates-tabagi.png",
         tags: ["Atıştırmalık"],
       },
+    ],
+  },
+  {
+    id: "cerezler",
+    name: "Çerezler",
+    slug: "cerezler",
+    description: "İçecek yanında servis edilebilecek atıştırmalık çerez seçenekleri.",
+    image: "/images/categories/snacks.webp",
+    itemCount: 2,
+    items: [
       {
-        id: "misir-tabagi",
-        name: "Mısır Tabağı",
-        description:
-          "Sade atıştırmalık olarak servis edilen mısır tabağı.",
+        id: "popcorn",
+        name: "Popcorn",
+        description: "Taze hazırlanmış çıtır popcorn.",
         price: 100,
-        image:
-          "/images/products/popcorn.jpg",
-        tags: ["Atıştırmalık"],
+        image: "/images/products/popcorn.jpg",
+        tags: ["Çerez", "Atıştırmalık"],
       },
       {
         id: "lux-karisik-cerez-tabagi",
         name: "Lüx Karışık Çerez Tabağı",
         description: "Paylaşımlık sunuma uygun karışık çerez tabağı.",
         price: 150,
-        image:
-          "/images/products/cerez-tabagi.jpeg",
-        tags: ["Atıştırmalık"],
+        image: "/images/products/cerez-tabagi.jpeg",
+        tags: ["Çerez", "Atıştırmalık"],
         isSignature: true,
       },
     ],
-  },
+  }
 ]
 
 export function formatPrice(price: number): string {
