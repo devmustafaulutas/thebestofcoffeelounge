@@ -1058,7 +1058,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Oralet",
         description:
           "Kivi, kuşburnu, elma, portakal, muz, kakao, nane limon, karadut ve limon aromalarıyla sunulan sıcak içecek.",
-        price: 40,
+        price: 50,
         image: "/images/products/oralet.jpeg",
         tags: ["Sıcak İçecek", "Meyveli"],
       },
