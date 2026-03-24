@@ -1,4 +1,3 @@
-// lib/menu-repository.ts
 import "server-only"
 import { menuCategories, type MenuCategory } from "@/lib/menu-data"
 
