@@ -195,7 +195,7 @@ export const menuCategories: MenuCategory[] = [
         id: "toffee-nut",
         name: "Toffee Nut",
         description: "Günlük taze demlenen yumuşak içimli filtre kahve.",
-        price: 150,
+        price: 175,
         image: "/images/products/toffee-nut.jpg",
         tags: ["Kahve"],
         sortGroup: "filter",
