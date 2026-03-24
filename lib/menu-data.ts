@@ -905,7 +905,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Soda Limon",
         description: "Soda ve sıkma limonla hazırlanan ferah içecek.",
         price: 100,
-        image: "/images/products/beypazari.jpg",
+        image: "/images/products/soda-limon.jpeg",
         tags: ["Gazlı", "Limonlu"],
         sortGroup: "soft-drink",
         temperature: "neutral",
