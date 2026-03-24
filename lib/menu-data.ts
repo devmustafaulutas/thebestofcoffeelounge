@@ -472,7 +472,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Ice Black Eye",
         description:
           "Soğuk servis edilen ekstra shot destekli yoğun kahve.",
-        price: 165,
+        price: 170,
         image: "/images/products/ice-black-eye.jpg",
         tags: ["Kahve", "Yoğun"],
         sortGroup: "strong",
@@ -1048,7 +1048,7 @@ export const menuCategories: MenuCategory[] = [
         id: "duble-cay",
         name: "Duble Çay",
         description: "Daha yoğun ve büyük porsiyon çay.",
-        price: 60,
+        price: 70,
         image: "/images/products/cay.jpeg",
         tags: ["Sıcak İçecek"],
       },
