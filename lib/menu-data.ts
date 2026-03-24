@@ -606,7 +606,7 @@ export const menuCategories: MenuCategory[] = [
       },
     ],
   },
-    {
+  {
     id: "milkshake",
     name: "Milkshake",
     slug: "milkshake",
@@ -1061,6 +1061,16 @@ export const menuCategories: MenuCategory[] = [
         image: "/images/products/cay.jpeg",
         tags: ["Sıcak İçecek"],
       },
+
+      {
+        id: "oralet",
+        name: "Oralet",
+        description:
+          "Kivi, kuşburnu, elma, portakal, muz, kakao, nane limon, karadut ve limon aromalarıyla sunulan sıcak içecek.",
+        price: 40,
+        image: "/images/products/oralet.jpeg",
+        tags: ["Sıcak İçecek", "Meyveli"],
+      },
       {
         id: "chai-tea-latte",
         name: "Chai Tea Latte",
@@ -1178,87 +1188,6 @@ export const menuCategories: MenuCategory[] = [
         tags: ["Sıcak İçecek", "Bitki Çayı"],
       },
 
-
-      {
-        id: "oralet",
-        name: "Oralet",
-        description: "Klasik aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/oralet.jpeg",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
-      {
-        id: "kivi-oralet",
-        name: "Kivi Oralet",
-        description: "Kivi aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/orolet.avif",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
-      {
-        id: "kusburnu-oralet",
-        name: "Kuşburnu Oralet",
-        description: "Kuşburnu aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/kusburnu-oralet.jpg",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
-      {
-        id: "elma-oralet",
-        name: "Elma Oralet",
-        description: "Elma aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/elma-oralet.jpg",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
-      {
-        id: "portakal-oralet",
-        name: "Portakal Oralet",
-        description: "Portakal aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/portakallı-oralet.png",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
-      {
-        id: "muz-oralet",
-        name: "Muz Oralet",
-        description: "Muz aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/muzlu-oralet.jpeg",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
-      {
-        id: "kakao",
-        name: "Kakao",
-        description: "Kakao aromalı sıcak içecek.",
-        price: 40,
-        image: "/images/products/kakao.jpg",
-        tags: ["Sıcak İçecek", "Kakaolu"],
-      },
-      {
-        id: "nane-limon-40",
-        name: "Nane Limon",
-        description: "Nane ve limon aromalı hafif sıcak içecek.",
-        price: 40,
-        image: "/images/products/nane-limon-aromali-toz-icecek.jpg",
-        tags: ["Sıcak İçecek", "Bitkisel"],
-      },
-      {
-        id: "karadut-oralet",
-        name: "Karadut Oralet",
-        description: "Karadut aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/karadut.png",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
-      {
-        id: "limon-oralet",
-        name: "Limon Oralet",
-        description: "Limon aromalı sıcak oralet içeceği.",
-        price: 40,
-        image: "/images/products/limon.webp",
-        tags: ["Sıcak İçecek", "Meyveli"],
-      },
 
     ],
   },
