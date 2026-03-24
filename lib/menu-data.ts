@@ -456,7 +456,7 @@ export const menuCategories: MenuCategory[] = [
         id: "ice-toffee-nut",
         name: "Ice Toffee Nut",
         description: "Buzla servis edilen Toffee nut.",
-        price: 135,
+        price: 185,
         image: "/images/products/ice-toffe-nut.webp",
         tags: ["Kahve"],
         sortGroup: "filter",
