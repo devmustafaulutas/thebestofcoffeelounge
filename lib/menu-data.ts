@@ -570,7 +570,7 @@ export const menuCategories: MenuCategory[] = [
         id: "ice-flat-white",
         name: "Ice Flat White",
         description: "Buz, süt ve double espresso ile ferah içim.",
-        price: 155,
+        price: 180,
         image: "/images/products/ice-flat-white.jpg",
         tags: ["Kahve"],
         isPopular: true,
@@ -584,7 +584,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Ice Spanish Latte",
         description:
           "Buz üzerinde servis edilen espresso ve süt, hafif tatlı dokunuşuyla birleşerek serin, kremamsı ve akıcı bir içim sunar.",
-        price: 185,
+        price: 210,
         image: "/images/products/iced-spanish-latte.jpg",
         tags: ["Kahve"],
         isPopular: false,
