@@ -175,6 +175,20 @@ export const menuCategories: MenuCategory[] = [
         optionGroups: coffeeOptionGroups
       },
       {
+        id: "cortado-coffee",
+        name: "Cortado Coffee",
+        description:
+          "Yoğun espresso ile eşit oranda eklenen sıcak sütle dengelenmiş, asiditesi yumuşatılmış, pürüzsüz ve güçlü içimli bir klasik.",
+        price: 160,
+        image: "/images/products/cortado-coffee.webp",
+        tags: ["Kahve"],
+        isPopular: false,
+        sortGroup: "espresso",
+        temperature: "hot",
+        pairKey: "espresso-con-panna",
+        optionGroups: coffeeOptionGroups
+      },
+      {
         id: "americano",
         name: "Americano",
         description: "Espresso bazlı, dengeli ve temiz içimli sıcak kahve.",
