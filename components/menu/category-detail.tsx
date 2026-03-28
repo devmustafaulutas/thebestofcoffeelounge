@@ -504,70 +504,91 @@ export function CategoryDetail({ category }: CategoryDetailProps) {
       )}
 
       <Drawer open={!!selectedItem} onOpenChange={(open) => { if (!open) setSelectedItem(null) }}>
-        <DrawerContent className="max-h-[92dvh] border-[var(--gold)]/15 bg-background">
-          <div className="mx-auto w-full max-w-xl overflow-y-auto">
+        <DrawerContent className="h-[90dvh] max-h-[90dvh] border-[var(--gold)]/15 bg-background">
+          <div className="mx-auto h-full w-full max-w-xl overflow-y-auto">
             {selectedItem && (
               <>
-                {selectedItem.image && (
-                  <div className="relative h-64 w-full md:h-80 overflow-hidden rounded-t-[inherit]">
-                    <Image
-                      src={selectedItem.image}
-                      alt={selectedItem.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 640px"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
-                    <DrawerClose asChild>
-                      <button type="button" className="absolute right-4 top-4 w-10 h-10 rounded-full border border-white/15 bg-black/30 backdrop-blur-lg flex items-center justify-center text-white hover:bg-black/50 transition-colors" aria-label="Kapat">
-                        <X className="h-4 w-4" />
-                      </button>
-                    </DrawerClose>
-                  </div>
-                )}
 
-                <DrawerHeader className={selectedItem.image ? "relative z-10 -mt-14 px-4 pb-0 md:px-5" : "px-4 pt-6 pb-0 md:px-5"}>
-                  <div className="rounded-2xl border border-[var(--gold)]/15 bg-card/95 p-5 md:p-6">
-                    <DrawerTitle asChild>
-                      <h2 className="font-display text-3xl md:text-4xl font-light italic text-foreground tracking-tight text-left leading-tight">
-                        {selectedItem.name}
-                      </h2>
-                    </DrawerTitle>
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {selectedItem.isNew && (
-                        <span className="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 bg-emerald-500/8 rounded-full px-3 py-1">
-                          <Sparkles className="h-2.5 w-2.5" /> Yeni
-                        </span>
-                      )}
-                      {selectedItem.isPopular && (
-                        <span className="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.18em] text-amber-600 dark:text-amber-400 border border-amber-500/25 bg-amber-500/8 rounded-full px-3 py-1">
-                          <TrendingUp className="h-2.5 w-2.5" /> Popüler
-                        </span>
-                      )}
-                      {selectedItem.isSignature && (
-                        <span className="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.18em] text-[var(--gold)] border border-[var(--gold)]/25 bg-[var(--gold)]/8 rounded-full px-3 py-1">
-                          <Star className="h-2.5 w-2.5" /> Özel
-                        </span>
-                      )}
-                      {selectedItem.tags?.map((tag) => (
-                        <span key={tag} className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground border border-border/60 rounded-full px-3 py-1">{tag}</span>
+
+{selectedItem.image && (
+  <div className="relative mx-4 mt-4 h-44 overflow-hidden rounded-2xl border border-[var(--gold)]/12 sm:h-48">
+    <Image
+      src={selectedItem.image}
+      alt={selectedItem.name}
+      fill
+      sizes="(max-width: 768px) 100vw, 640px"
+      className="object-cover"
+    />
+    <div className="absolute inset-0 bg-gradient-to-r from-black/28 via-black/10 to-black/20" />
+
+    <DrawerClose asChild>
+      <button
+        type="button"
+        className="absolute right-3 top-3 h-9 w-9 rounded-full border border-white/15 bg-black/30 backdrop-blur-md flex items-center justify-center text-white"
+        aria-label="Kapat"
+      >
+        <X className="h-4 w-4" />
+      </button>
+    </DrawerClose>
+  </div>
+)}<DrawerHeader className="px-4 pt-4 pb-0">
+  <div className="min-w-0">
+    <DrawerTitle asChild>
+      <h2 className="font-display flex justify-center text-2xl md:text-3xl font-light italic text-foreground tracking-tight text-left leading-tight">
+        {selectedItem.name}
+      </h2>
+    </DrawerTitle>
+
+    {selectedItem.description && (
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">
+        {selectedItem.description}
+      </p>
+    )}
+  </div>
+</DrawerHeader>
+<div className="mt-4 h-px w-full bg-[var(--gold)]/8" />
+                <div className="px-4 pb-10 pt-4 md:px-5 md:pb-12">
+                  {selectedItem.optionGroups?.length ? (
+                    <div className="mt-5 space-y-4">
+                      {selectedItem.optionGroups.map((group) => (
+                        <div key={group.id}>
+                          <div className="flex items-center justify-between gap-3 mb-2">
+                            <h3 className="text-[11px] uppercase tracking-[0.18em] text-[var(--gold)]">
+                              {group.name}
+                            </h3>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2">
+                            {group.choices.map((choice) => (
+                              <button
+                                key={choice.id}
+                                type="button"
+                                className="inline-flex items-center gap-2 rounded-full border border-[var(--gold)]/15 bg-card/70 px-3.5 py-2 text-sm text-foreground"
+                              >
+                                <span>{choice.name}</span>
+                                <span className="text-[var(--gold)] font-medium">
+                                  +{formatPrice(choice.priceDelta)}
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
-                  </div>
-                </DrawerHeader>
+                  ) : null}
+                  <div className="mt-6 border-t border-[var(--gold)]/10 pt-4">
+                    <div className="flex items-end justify-between gap-4">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                          Toplam
+                        </p>
+                        <p className="text-[11px] text-muted-foreground/60 mt-1">KDV dahil</p>
+                      </div>
 
-                <div className="px-4 pb-10 pt-4 md:px-5 md:pb-12">
-                  {selectedItem.description && (
-                    <p className="text-sm md:text-base leading-7 text-muted-foreground font-light">{selectedItem.description}</p>
-                  )}
-                  <div className="mt-6 rounded-2xl border border-[var(--gold)]/18 bg-gradient-to-br from-[var(--gold)]/6 to-[var(--gold)]/2 p-5 flex items-center justify-between">
-                    <div>
-                      <p className="text-[9px] uppercase tracking-[0.25em] text-muted-foreground font-light">Fiyat</p>
-                      <p className="text-xs text-muted-foreground/60 mt-0.5">KDV dahil</p>
+                      <span className="font-display text-4xl font-semibold text-[var(--gold)] leading-none">
+                        {formatPrice(selectedItem.price)}
+                      </span>
                     </div>
-                    <span className="font-display text-5xl font-semibold text-[var(--gold)] tracking-tight leading-none">
-                      {formatPrice(selectedItem.price)}
-                    </span>
                   </div>
                   <p className="mt-5 text-center text-[10px] text-muted-foreground/50 font-light leading-6 tracking-wide">
                     Alerjen bilgisi için personelimize danışabilirsiniz.
