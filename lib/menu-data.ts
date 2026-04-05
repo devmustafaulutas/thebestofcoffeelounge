@@ -949,6 +949,16 @@ export const menuCategories: MenuCategory[] = [
         temperature: "neutral",
       },
       {
+        id: "berry-hibiscus",
+        name: "Berry Hibiscus",
+        description: "Çilek ve hibiskus aromalı, ferah ve serinletici berry hibiscus.",
+        price: 180,
+        image: "/images/products/berry-hibiscus.webp",
+        tags: ["Soğuk İçecek", "Meyveli"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
+      },
+      {
         id: "italian-soda",
         name: "Italian Soda",
         description: "Turunç veya çilek opsiyonlu, ferah ve gazlı özel soğuk içecek.",
