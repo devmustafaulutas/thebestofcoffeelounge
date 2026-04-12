@@ -1354,6 +1354,15 @@ export const menuCategories: MenuCategory[] = [
     itemCount: 15,
     items: [
       {
+        id: "fondü",
+        name: "Fondü",
+        description: "Eriyen sıcak çikolata eşliğinde meyve ve atıştırmalıklarla servis edilen keyifli bir tatlı deneyimi.",
+        price: 200,
+        image: "/images/products/fondu.jpg",
+        tags: ["Tatlı"],
+        isPopular: true,
+      },
+      {
         id: "tiramisu",
         name: "Tiramisu",
         description: "Kahve aromalı İtalyan klasik tatlı.",
