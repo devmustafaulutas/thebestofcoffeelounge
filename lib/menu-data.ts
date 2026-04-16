@@ -1358,7 +1358,7 @@ export const menuCategories: MenuCategory[] = [
         name: "Fondü",
         description: "Eriyen sıcak çikolata eşliğinde meyve ve atıştırmalıklarla servis edilen keyifli bir tatlı deneyimi.",
         price: 200,
-        image: "/images/products/fondu.jpg",
+        image: "/images/products/cilekli-fondu.jpg",
         tags: ["Tatlı"],
         isPopular: true,
       },
