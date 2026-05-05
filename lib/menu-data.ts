@@ -1568,6 +1568,7 @@ export const menuCategories: MenuCategory[] = [
         image: "/images/products/pilav-salatasi.webp",
         tags: ["Pilav"],
       },
+      
       {
         id: "cig-kofte-durum",
         name: "Çiğ Köfte Dürüm",
