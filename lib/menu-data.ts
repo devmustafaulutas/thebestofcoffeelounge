@@ -973,6 +973,26 @@ export const menuCategories: MenuCategory[] = [
           "/images/products/strawberry-frozen.jpg",
         tags: ["Frozen"],
       },
+    
+    ],
+  },
+  {
+    id: "smoothie",
+    name: "Smoothie",
+    slug: "smoothie",
+    description: "Meyve bazlı, yoğun ve lezzetli smoothie içecekler.",
+    image: "/images/categories/smoothies.webp",
+    itemCount: 8,
+    items: [
+      {
+        id: "smoothie",
+        name: "Smoothie",
+        description: "Dilediğiniz aroma ile, yoğun ve lezzetli smoothie.",
+        price: 200,
+        image:
+          "/images/categories/smoothies.webp",
+        tags: ["Smoothie"],
+      },
     ],
   },
   {
@@ -1568,7 +1588,7 @@ export const menuCategories: MenuCategory[] = [
         image: "/images/products/pilav-salatasi.webp",
         tags: ["Pilav"],
       },
-      
+
       {
         id: "cig-kofte-durum",
         name: "Çiğ Köfte Dürüm",
