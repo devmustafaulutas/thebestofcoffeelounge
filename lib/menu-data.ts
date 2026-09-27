@@ -1001,7 +1001,7 @@ export const menuCategories: MenuCategory[] = [
     slug: "soguk-icecekler",
     description: "Gazlı, meyveli ve şişe içecek seçenekleri.",
     image: "/images/categories/cold-drinks.jpg",
-    itemCount: 19,
+    itemCount: 26,
     items: [
       {
         id: "ikili-bardak",
@@ -1079,11 +1079,21 @@ export const menuCategories: MenuCategory[] = [
         temperature: "neutral",
       },
       {
+        id: "soguk-salep",
+        name: "Soğuk Salep",
+        description: "Soğuk servis edilen, tarçınla tamamlanan salep.",
+        price: 190,
+        image: "/images/products/salep.jpg",
+        tags: ["Soğuk İçecek"],
+        sortGroup: "soft-drink",
+        temperature: "neutral",
+      },
+      {
         id: "ananas",
         name: "Ananas",
         description: "Ananas aromalı soğuk içecek.",
         price: 90,
-        image: "/images/products/pineapple.webp",
+        image: "/images/products/ananas.jpg",
         tags: ["Meyveli"],
         sortGroup: "soft-drink",
         temperature: "neutral",
